@@ -1,0 +1,92 @@
+<div class="user-management-container mb-4 p-4 shadow-sm rounded bg-white">
+
+  <!-- Header -->
+  <div class="fw-bold fs-5 mb-3 border-bottom pb-2">
+    User Management
+  </div>
+
+  <!-- Success / Error Message -->
+  <div *ngIf="message" class="alert text-center" 
+       [ngClass]="messageType === 'success' ? 'alert-success' : 'alert-danger'">
+    {{ message }}
+  </div>
+
+  <div *ngIf="userList.length > 0; else noUsers" class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>SN</th>
+          <th>Full Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th>Created At</th>
+          <th class="text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of userList">
+          <td>{{ user.id }}</td>
+          <td *ngIf="editingUserId !== user.id" class="fw-semibold">{{ user.fullName }}</td>
+          <td *ngIf="editingUserId === user.id">
+            <input [(ngModel)]="user.fullName" class="form-control form-control-sm" />
+          </td>
+          <td *ngIf="editingUserId !== user.id">{{ user.email }}</td>
+          <td *ngIf="editingUserId === user.id">
+            <input [(ngModel)]="user.email" class="form-control form-control-sm" />
+          </td>
+          <td *ngIf="editingUserId !== user.id">{{ user.phone }}</td>
+          <td *ngIf="editingUserId === user.id">
+            <input [(ngModel)]="user.phone" class="form-control form-control-sm" />
+          </td>
+          <td>
+            <span class="badge rounded-pill"
+                  [ngClass]="{
+                    'bg-primary': user.role === 'Admin',
+                    'bg-success': user.role === 'Seller',
+                    'bg-info': user.role === 'Customer',
+                    'bg-secondary': user.role !== 'Admin' && user.role !== 'Seller' && user.role !== 'Customer'
+                  }">
+              {{ user.role }}
+            </span>
+          </td>
+          <td>
+            <span class="badge rounded-pill" [ngClass]="user.isActive ? 'bg-success' : 'bg-danger'">
+              {{ user.isActive ? 'Active' : 'Inactive' }}
+            </span>
+          </td>
+          <td>{{ user.createdAt | date:'medium' }}</td>
+          <td class="text-center">
+            <button *ngIf="editingUserId !== user.id" 
+                    class="btn btn-sm btn-outline-info me-2" 
+                    (click)="startEdit(user.id)">
+              Edit
+            </button>
+            <button *ngIf="editingUserId === user.id" 
+                    class="btn btn-sm btn-outline-success me-2" 
+                    (click)="saveEdit(user)">
+              Save
+            </button>
+            <button *ngIf="editingUserId === user.id" 
+                    class="btn btn-sm btn-outline-secondary me-2" 
+                    (click)="cancelEdit()">
+              Cancel
+            </button>
+            <button class="btn btn-sm btn-outline-danger" (click)="DeleteUser(user.id)">
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- No Users Template -->
+  <ng-template #noUsers>
+    <div class="text-center py-5 text-muted">
+      <h5 class="fw-bold">No Users Found</h5>
+      <p>Try adding some users first.</p>
+    </div>
+  </ng-template>
+</div>

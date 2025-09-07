@@ -1,0 +1,39 @@
+.sidebar {
+  background: #1e1e2f;
+  min-height: 100vh;
+  width: 220px;
+  transition: all 0.3s ease;
+}
+
+.sidebar.collapsed {
+  width: 70px;
+  text-align: center;
+}
+
+.sidebar .btn-toggle {
+  background: #343a40;
+  border: none;
+  width: 100%;
+}
+
+.sidebar-item {
+  padding: 10px 15px;
+  border-radius: 8px;
+  color: #cfcfcf;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sidebar-item i {
+  font-size: 1.2rem;
+}
+
+.sidebar-item:hover {
+  background: #2c2c44;
+  color: #ffffff;
+}
+
+.sidebar-item.active {
+  background: #007bff;
+  color: #fff;
+}

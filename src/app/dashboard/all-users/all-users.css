@@ -1,0 +1,9 @@
+.user-management-container {
+  background-color: #ffffff; /* card background */
+  border-radius: 0.375rem;   /* rounded corners */
+  box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075); /* card shadow */
+  border: 1px solid #e0e0e0; /* subtle border like card */
+}
+.user-management-container .fw-bold.fs-5 {
+  font-size: 1.25rem; /* header size */
+}

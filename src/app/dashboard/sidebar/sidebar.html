@@ -1,0 +1,44 @@
+<div class="sidebar d-flex flex-column p-3 shadow-sm" 
+     [class.collapsed]="isCollapsed">
+
+  <!-- Top Section -->
+  <div class="flex-grow-1">
+    <!-- Logo / Title -->
+    <h5 class="fw-bold text-center mb-4 text-white" *ngIf="!isCollapsed">
+      <i class="bi bi-speedometer2 me-2"></i> My Dashboard
+    </h5>
+
+    <!-- Menu Items -->
+    <ul class="nav nav-pills flex-column gap-2">
+      <li class="nav-item sidebar-item"
+          [class.active]="activeMenu === 'users'"
+          (click)="selectMenu('users')">
+        <i class="bi bi-people-fill me-2"></i> 
+        <span *ngIf="!isCollapsed">Users</span>
+      </li>
+
+      <li class="nav-item sidebar-item"
+          [class.active]="activeMenu === 'products'"
+          (click)="selectMenu('products')">
+        <i class="bi bi-box-seam me-2"></i> 
+        <span *ngIf="!isCollapsed">Products</span>
+      </li>
+
+      <li class="nav-item sidebar-item"
+          [class.active]="activeMenu === 'settings'"
+          (click)="selectMenu('settings')">
+        <i class="bi bi-gear-fill me-2"></i> 
+        <span *ngIf="!isCollapsed">Settings</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Bottom Toggle Button -->
+  <div class="mt-auto">
+    <button class="btn btn-sm btn-toggle text-white w-100" 
+            (click)="toggleSidebar()">
+      <i class="bi" [ngClass]="isCollapsed ? 'bi-arrow-right-square' : 'bi-arrow-left-square'"></i>
+    </button>
+  </div>
+</div>
+
