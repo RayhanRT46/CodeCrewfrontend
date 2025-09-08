@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 })
 export class Registeruseradmin {
   @Output() registered = new EventEmitter<void>();
+  @Output() back = new EventEmitter<void>();
 
   registerForm: FormGroup;
   roles = ['Admin', 'Seller', 'Customer'];
@@ -24,23 +25,27 @@ export class Registeruseradmin {
       role: ['', Validators.required]
     });
   }
-  onSubmit() {
-    if (this.registerForm.invalid) return;
-    var showAddUser = true;
-    const token = localStorage.getItem('adminToken');
-    const data: Registeruseradmin = this.registerForm.value;
 
-    this.userService.registerUserAdmin(data, token!).subscribe({
-      next: () => {
-        this.message = '✅ User registered successfully!';
-        setTimeout(() => {
-          this.registered.emit();
-        }, 0);
-      },
-      error: () => {
-        this.message = '❌ Registration failed!';
-      }
-    });
+  onSubmit() {
+  if (this.registerForm.invalid) return;
+
+  const token = localStorage.getItem('adminToken');
+  const data = this.registerForm.value;
+  this.userService.registerUserAdmin(data, token!).subscribe({
+    next: () => {
+      this.message = 'User registered successfully!';
+      this.registerForm.reset();
+      this.registered.emit();
+    },
+    error: () => {
+      this.message = 'Registration failed!';
+    }
+  });
+}
+
+  onBackClick() {
+    this.back.emit();
   }
+
 
 }

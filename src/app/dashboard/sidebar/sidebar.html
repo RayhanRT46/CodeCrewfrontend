@@ -10,6 +10,7 @@
 
     <!-- Menu Items -->
     <ul class="nav nav-pills flex-column gap-2">
+      <!-- Users -->
       <li class="nav-item sidebar-item"
           [class.active]="activeMenu === 'users'"
           (click)="selectMenu('users')">
@@ -17,13 +18,33 @@
         <span *ngIf="!isCollapsed">Users</span>
       </li>
 
+      <!-- Products with Submenu -->
       <li class="nav-item sidebar-item"
           [class.active]="activeMenu === 'products'"
-          (click)="selectMenu('products')">
+          (click)="toggleProductsMenu()">
         <i class="bi bi-box-seam me-2"></i> 
         <span *ngIf="!isCollapsed">Products</span>
+        <i *ngIf="!isCollapsed" class="bi float-end" 
+           [ngClass]="showProductsSubMenu ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
       </li>
 
+      <!-- Submenu -->
+      <ul *ngIf="showProductsSubMenu && !isCollapsed" class="nav flex-column ms-4 mt-1 gap-1">
+        <li class="nav-item sidebar-sub-item" (click)="selectMenu('brand')">
+          <i class="bi bi-circle me-2 small"></i> Brand
+        </li>
+        <li class="nav-item sidebar-sub-item" (click)="selectMenu('category')">
+          <i class="bi bi-circle me-2 small"></i> Category
+        </li>
+        <li class="nav-item sidebar-sub-item" (click)="selectMenu('all-products')">
+          <i class="bi bi-circle me-2 small"></i> All Products
+        </li>
+        <li class="nav-item sidebar-sub-item" (click)="selectMenu('product-type')">
+          <i class="bi bi-circle me-2 small"></i> Product Type
+        </li>
+      </ul>
+
+      <!-- Settings -->
       <li class="nav-item sidebar-item"
           [class.active]="activeMenu === 'settings'"
           (click)="selectMenu('settings')">
@@ -41,4 +62,3 @@
     </button>
   </div>
 </div>
-

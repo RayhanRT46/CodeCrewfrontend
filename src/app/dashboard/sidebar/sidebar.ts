@@ -12,12 +12,19 @@ export class Sidebar {
   @Output() menuClick = new EventEmitter<string>();
   @Input() activeMenu: string = '';
   isCollapsed: boolean = false;
+  showProductsSubMenu: boolean = false; 
 
   selectMenu(menu: string) {
     this.menuClick.emit(menu);
   }
 
-  toggleSidebar() {
+ toggleSidebar() {
     this.isCollapsed = !this.isCollapsed;
+    if (this.isCollapsed) {
+      this.showProductsSubMenu = false;
+    }
+  }
+  toggleProductsMenu() {
+    this.showProductsSubMenu = !this.showProductsSubMenu;
   }
 }

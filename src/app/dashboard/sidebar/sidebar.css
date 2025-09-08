@@ -37,3 +37,20 @@
   background: #007bff;
   color: #fff;
 }
+
+.sidebar-sub-item {
+  color: #cfcfcf;
+  padding: 0.3rem 0.5rem;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  transition: background 0.2s;
+}
+
+.sidebar-sub-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.nav .sidebar-item.active {
+  background: rgba(255, 255, 255, 0.2);
+}
+

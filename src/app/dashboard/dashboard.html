@@ -22,7 +22,7 @@
 
       <!-- Show Add User or All Users -->
       <ng-container *ngIf="showAddUser; else showAllUsers">
-        <app-registeruseradmin></app-registeruseradmin>
+        <app-registeruseradmin  (back)="onUserRegistered()"></app-registeruseradmin>
       </ng-container>
       <ng-template #showAllUsers>
         <app-all-users></app-all-users>

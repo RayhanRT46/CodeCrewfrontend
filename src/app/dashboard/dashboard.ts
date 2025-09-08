@@ -17,31 +17,29 @@ export class Dashboard {
   activeMenu: string = '';
   showAddUser: boolean = false;
 
-  // ✅ Inject Router and ActivatedRoute
+  // Inject Router and ActivatedRoute
   constructor(private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    // Listen to route changes
-    this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(() => {
         const urlParts = this.router.url.split('/');
         this.activeMenu = urlParts[2] || '';
         this.showAddUser = urlParts[3] === 'add';
-      });
   }
 
+  // Void for deshboard router
   onMenuClick(menu: string) {
-    this.activeMenu = menu;
-    this.showAddUser = false;
+  this.activeMenu = menu;
+  this.showAddUser = false;
+  if (this.router.url !== `/dashboard/${menu}`) {
     this.router.navigate(['/dashboard', menu]);
   }
+}
 
+//Void for New User Create
   onAddUserClick() {
     this.showAddUser = true;
     this.router.navigate(['/dashboard', 'users', 'add']);
   }
-
   onUserRegistered() {
     this.showAddUser = false;
     this.router.navigate(['/dashboard', 'users']);
