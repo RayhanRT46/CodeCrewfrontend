@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { LoginService } from '../../../user/service/login.service';
+import { LoginService } from '../service/login.service';
 import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-registeruseradmin',
@@ -9,7 +9,6 @@ import { CommonModule } from '@angular/common';
   styleUrl: './registeruseradmin.css'
 })
 export class Registeruseradmin {
-  @Output() registered = new EventEmitter<void>();
   @Output() back = new EventEmitter<void>();
 
   registerForm: FormGroup;
@@ -35,7 +34,7 @@ export class Registeruseradmin {
     next: () => {
       this.message = 'User registered successfully!';
       this.registerForm.reset();
-      this.registered.emit();
+       this.back.emit();
     },
     error: () => {
       this.message = 'Registration failed!';

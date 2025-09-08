@@ -29,11 +29,40 @@
       </ng-template>
     }
 
-    @case ('products') {
-      <h3 class="fw-bold mb-3">
-        <i class="bi bi-box-seam text-success me-2"></i> Products
-      </h3>
-      <p class="text-muted">Track and manage products in your system.</p>
+        @case ('product') {
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="fw-bold mb-0">
+          <i class="bi bi-bootstrap fs-1 text-primary me-2"></i> Product
+        </h3>
+        <button class="btn btn-primary" (click)="onAddBrandClick()">
+          <i class="bi bi-plus-lg me-1"></i> Add Product
+        </button>
+      </div>
+            <!-- Show Add User or All Users -->
+      <ng-container *ngIf="showAddUser; else brandTemplate">
+        <app-brand-create (back)="onUserRegistered()"></app-brand-create>
+      </ng-container>
+      <ng-template #brandTemplate>
+      <app-product></app-product>
+      </ng-template>
+    }
+
+    @case ('brand') {
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="fw-bold mb-0">
+          <i class="bi bi-bootstrap fs-1 text-primary me-2"></i> Brand
+        </h3>
+        <button class="btn btn-primary" (click)="onAddBrandClick()">
+          <i class="bi bi-plus-lg me-1"></i> Add Brand
+        </button>
+      </div>
+            <!-- Show Add User or All Users -->
+      <ng-container *ngIf="showAddUser; else brandTemplate">
+        <app-brand-create (back)="onUserRegistered()"></app-brand-create>
+      </ng-container>
+      <ng-template #brandTemplate>
+      <app-brand></app-brand>
+      </ng-template>
     }
 
     @case ('settings') {

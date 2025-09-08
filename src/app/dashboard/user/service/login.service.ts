@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { userModel } from '../../dashboard/all-users/userModel';
+import { userModel } from '../all-users/userModel';
 import { Router } from '@angular/router';
-import { Registeruseradmin } from '../../dashboard/all-users/registeruseradmin/registeruseradmin';
+import { Registeruseradmin } from '../registeruseradmin/registeruseradmin';
 
 @Injectable({
   providedIn: 'root'

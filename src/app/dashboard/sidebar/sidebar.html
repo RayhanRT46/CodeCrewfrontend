@@ -30,6 +30,9 @@
 
       <!-- Submenu -->
       <ul *ngIf="showProductsSubMenu && !isCollapsed" class="nav flex-column ms-4 mt-1 gap-1">
+        <li class="nav-item sidebar-sub-item" (click)="selectMenu('product')">
+          <i class="bi bi-circle me-2 small"></i> Product
+        </li>
         <li class="nav-item sidebar-sub-item" (click)="selectMenu('brand')">
           <i class="bi bi-circle me-2 small"></i> Brand
         </li>

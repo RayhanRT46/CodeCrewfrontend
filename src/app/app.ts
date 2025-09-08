@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Login } from './user/login/login';
+import { Login } from './dashboard/user/login/login';
 import { RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { LoginService } from './user/service/login.service';
+import { LoginService } from './dashboard/user/service/login.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth-interceptor';
 import { JwtHelperService } from '@auth0/angular-jwt';

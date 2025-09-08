@@ -1,15 +1,17 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Sidebar } from './sidebar/sidebar';
-import { AllUsers } from "./all-users/all-users";
-import { NavigationEnd, Router, RouterModule, ActivatedRoute } from '@angular/router';
-import { Registeruseradmin } from "./all-users/registeruseradmin/registeruseradmin";
-import { filter } from 'rxjs';
+import { AllUsers } from "./user/all-users/all-users";
+import { Router, RouterModule, ActivatedRoute } from '@angular/router';
+import { Registeruseradmin } from "./user/registeruseradmin/registeruseradmin";
+import { Brand } from './product/brand/brand';
+import { BrandCreate } from './product/brand/brand-create/brand-create';
+import { Product } from "./product/product";
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, Sidebar, AllUsers, RouterModule, Registeruseradmin],
+  imports: [CommonModule, Sidebar, AllUsers, RouterModule, Registeruseradmin, Brand, BrandCreate, Product],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.css'],
 })
@@ -44,4 +46,12 @@ export class Dashboard {
     this.showAddUser = false;
     this.router.navigate(['/dashboard', 'users']);
   }
+
+  //Void for New User Create
+  onAddBrandClick() {
+    this.showAddUser = true;
+    this.router.navigate(['/dashboard', 'brand', 'add']);
+  }
+
+  
 }

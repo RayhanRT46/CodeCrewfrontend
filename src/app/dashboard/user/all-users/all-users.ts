@@ -1,5 +1,5 @@
 import { Component, Injectable, OnInit } from '@angular/core';
-import { LoginService } from '../../user/service/login.service';
+import { LoginService } from '../service/login.service';
 import { userModel } from './userModel';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';

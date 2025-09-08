@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { Home } from './home/home';
-import { Login } from './user/login/login';
+import { Login } from './dashboard/user/login/login';
 import { Dashboard } from './dashboard/dashboard';
 
 
