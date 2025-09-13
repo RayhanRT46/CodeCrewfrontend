@@ -4,12 +4,16 @@
     <h5>User Management</h5>
   </div>
 
-  <div *ngIf="message" class="alert text-center"
-       [ngClass]="messageType === 'success' ? 'alert-success' : 'alert-danger'">
-    {{ message }}
-  </div>
+  <!-- Message -->
+  @if (message) {
+    <div class="alert text-center"
+         [ngClass]="messageType === 'success' ? 'alert-success' : 'alert-danger'">
+      {{ message }}
+    </div>
+  }
 
-  <div *ngIf="userList.length > 0; else noUsers">
+  <!-- User List -->
+  @if (userList.length > 0) {
     <table class="table table-hover align-middle">
       <thead class="table-light">
         <tr>
@@ -24,66 +28,85 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of userList; let i = index">
-          <td data-label="SN">{{ i + 1 }}</td>
-          <td data-label="Full Name" *ngIf="editingUserId !== user.id" class="fw-semibold">{{ user.fullName }}</td>
-          <td data-label="Full Name" *ngIf="editingUserId === user.id">
-            <input [(ngModel)]="user.fullName" class="form-control form-control-sm" />
-          </td>
-          <td data-label="Email" *ngIf="editingUserId !== user.id">{{ user.email }}</td>
-          <td data-label="Email" *ngIf="editingUserId === user.id">
-            <input [(ngModel)]="user.email" class="form-control form-control-sm" />
-          </td>
-          <td data-label="Phone" *ngIf="editingUserId !== user.id">{{ user.phone }}</td>
-          <td data-label="Phone" *ngIf="editingUserId === user.id">
-            <input [(ngModel)]="user.phone" class="form-control form-control-sm" />
-          </td>
-          <td data-label="Role">
-            <span class="badge role-badge" [ngClass]="{
-              'admin': user.role === 'Admin',
-              'seller': user.role === 'Seller',
-              'customer': user.role === 'Customer',
-              'other': user.role !== 'Admin' && user.role !== 'Seller' && user.role !== 'Customer'
-            }">
-              {{ user.role }}
-            </span>
-          </td>
-          <td data-label="Status">
-            <span class="badge status-badge" [ngClass]="user.isActive ? 'active' : 'inactive'">
-              {{ user.isActive ? 'Active' : 'Inactive' }}
-            </span>
-          </td>
-          <td data-label="Created At">{{ user.createdAt | date:'medium' }}</td>
-          <td data-label="Actions" class="text-center">
-            <button *ngIf="editingUserId !== user.id" 
-                    class="btn btn-sm btn-outline-info me-2" 
-                    (click)="startEdit(user.id)">
-              Edit
-            </button>
-            <button *ngIf="editingUserId === user.id" 
-                    class="btn btn-sm btn-outline-success me-2" 
-                    (click)="saveEdit(user)">
-              Save
-            </button>
-            <button *ngIf="editingUserId === user.id" 
-                    class="btn btn-sm btn-outline-secondary me-2" 
-                    (click)="cancelEdit()">
-              Cancel
-            </button>
-            <button class="btn btn-sm btn-outline-danger" (click)="DeleteUser(user.id)">
-              Delete
-            </button>
-          </td>
-        </tr>
+        @for (user of userList; track user.id; let i = $index) {
+          <tr>
+            <td data-label="SN">{{ i + 1 }}</td>
+
+            <!-- Full Name -->
+            @if (editingUserId !== user.id) {
+              <td data-label="Full Name" class="fw-semibold">{{ user.fullName }}</td>
+            } @else {
+              <td data-label="Full Name">
+                <input [(ngModel)]="user.fullName" class="form-control form-control-sm" />
+              </td>
+            }
+
+            <!-- Email -->
+            @if (editingUserId !== user.id) {
+              <td data-label="Email">{{ user.email }}</td>
+            } @else {
+              <td data-label="Email">
+                <input [(ngModel)]="user.email" class="form-control form-control-sm" />
+              </td>
+            }
+
+            <!-- Phone -->
+            @if (editingUserId !== user.id) {
+              <td data-label="Phone">{{ user.phone }}</td>
+            } @else {
+              <td data-label="Phone">
+                <input [(ngModel)]="user.phone" class="form-control form-control-sm" />
+              </td>
+            }
+
+            <!-- Role -->
+            <td data-label="Role">
+              <span class="badge role-badge" [ngClass]="{
+                'admin': user.role === 'Admin',
+                'seller': user.role === 'Seller',
+                'customer': user.role === 'Customer',
+                'other': user.role !== 'Admin' && user.role !== 'Seller' && user.role !== 'Customer'
+              }">
+                {{ user.role }}
+              </span>
+            </td>
+
+            <!-- Status -->
+            <td data-label="Status">
+              <span class="badge status-badge" [ngClass]="user.isActive ? 'active' : 'inactive'">
+                {{ user.isActive ? 'Active' : 'Inactive' }}
+              </span>
+            </td>
+
+            <td data-label="Created At">{{ user.createdAt | date:'medium' }}</td>
+
+            <!-- Actions -->
+            <td data-label="Actions" class="text-center">
+              @if (editingUserId !== user.id) {
+                <button class="btn btn-sm btn-outline-info me-2" (click)="startEdit(user.id)">
+                  Edit
+                </button>
+              } @else {
+                <button class="btn btn-sm btn-outline-success me-2" (click)="saveEdit(user)">
+                  Save
+                </button>
+                <button class="btn btn-sm btn-outline-secondary me-2" (click)="cancelEdit()">
+                  Cancel
+                </button>
+              }
+              <button class="btn btn-sm btn-outline-danger" (click)="DeleteUser(user.id)">
+                Delete
+              </button>
+            </td>
+          </tr>
+        }
       </tbody>
     </table>
-  </div>
-
-  <ng-template #noUsers>
+  } @else {
     <div class="no-users">
       <h5>No Users Found</h5>
       <p>Try adding some users first.</p>
     </div>
-  </ng-template>
+  }
 
 </div>

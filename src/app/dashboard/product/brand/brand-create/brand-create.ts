@@ -25,19 +25,17 @@ export class BrandCreate {
 
   onSubmit() {
     if (this.brandForm.invalid) return;
-
-    const token = localStorage.getItem('token');
     const brandData = {
       name: this.brandForm.get('name')?.value,
       logoUrl: this.brandForm.get('logoUrl')?.value
     };
-    this.service.BrandAdd(brandData, token!).subscribe({
+    this.service.BrandAdd(brandData).subscribe({
       next: () => {
         this.message = '✅ Brand added successfully!';
         this.brandForm.reset();
         this.back.emit();
       },
-      error: (err) => {
+      error: () => {
         this.message = '❌ Brand add failed!';
       }
     });

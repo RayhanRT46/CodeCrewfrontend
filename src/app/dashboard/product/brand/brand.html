@@ -4,12 +4,14 @@
     <h5>Brand</h5>
   </div>
 
-  <div *ngIf="message" class="alert text-center"
-       [ngClass]="messageType === 'success' ? 'alert-success' : 'alert-danger'">
-    {{ message }}
-  </div>
+  @if (message) {
+    <div class="alert text-center"
+         [ngClass]="messageType === 'success' ? 'alert-success' : 'alert-danger'">
+      {{ message }}
+    </div>
+  }
 
-  <div *ngIf="brandList.length > 0; else noData">
+  @if (brandList.length > 0) {
     <table class="table table-hover align-middle">
       <thead class="table-light">
         <tr>
@@ -20,46 +22,56 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let brand of brandList; let i = index">
-          <td data-label="SN">{{ i + 1 }}</td>
-          <td data-label="Brand Name" *ngIf="editingUserId !== brand.id" class="fw-semibold">{{ brand.name }}</td>
-          <td data-label="Brand Name" *ngIf="editingUserId === brand.id">
-            <input [(ngModel)]="brand.name" class="form-control form-control-sm" />
-          </td>
-          <td data-label="LogoUrl" *ngIf="editingUserId !== brand.id">{{ brand.logoUrl }}</td>
-          <td data-label="LogoUrl" *ngIf="editingUserId === brand.id">
-            <input [(ngModel)]="brand.logoUrl" class="form-control form-control-sm" />
-          </td>
-          <td data-label="Actions" class="text-center">
-            <button *ngIf="editingUserId !== brand.id" 
-                    class="btn btn-sm btn-outline-info me-2" 
-                    (click)="startEdit(brand.id)">
-              Edit
-            </button>
-            <button *ngIf="editingUserId === brand.id" 
-                    class="btn btn-sm btn-outline-success me-2" 
-                    (click)="saveEdit(brand)">
-              Save
-            </button>
-            <button *ngIf="editingUserId === brand.id" 
-                    class="btn btn-sm btn-outline-secondary me-2" 
-                    (click)="cancelEdit()">
-              Cancel
-            </button>
-            <button class="btn btn-sm btn-outline-danger" (click)="DeleteBrand(brand.id)">
-              Delete
-            </button>
-          </td>
-        </tr>
+        @for (brand of brandList; track brand.id; let i = $index) {
+          <tr>
+            <td data-label="SN">{{ i + 1 }}</td>
+
+            @if (editingUserId !== brand.id) {
+              <td data-label="Brand Name" class="fw-semibold">{{ brand.name }}</td>
+              <td data-label="LogoUrl">{{ brand.logoUrl }}</td>
+            }
+            @else {
+              <td data-label="Brand Name">
+                <input [(ngModel)]="brand.name" class="form-control form-control-sm" />
+              </td>
+              <td data-label="LogoUrl">
+                <input [(ngModel)]="brand.logoUrl" class="form-control form-control-sm" />
+              </td>
+            }
+
+            <td data-label="Actions" class="text-center">
+              @if (editingUserId !== brand.id) {
+                <button class="btn btn-sm btn-outline-info me-2"
+                        (click)="startEdit(brand.id)">
+                  Edit
+                </button>
+              }
+              @else {
+                <button class="btn btn-sm btn-outline-success me-2"
+                        (click)="saveEdit(brand)">
+                  Save
+                </button>
+                <button class="btn btn-sm btn-outline-secondary me-2"
+                        (click)="cancelEdit()">
+                  Cancel
+                </button>
+              }
+
+              <button class="btn btn-sm btn-outline-danger"
+                      (click)="DeleteBrand(brand.id)">
+                Delete
+              </button>
+            </td>
+          </tr>
+        }
       </tbody>
     </table>
-  </div>
-
-  <ng-template #noData>
+  }
+  @else {
     <div class="no-users">
       <h5>No Brand Found</h5>
       <p>Try adding some Brand first.</p>
     </div>
-  </ng-template>
+  }
 
 </div>

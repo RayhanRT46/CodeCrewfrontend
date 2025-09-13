@@ -1,0 +1,97 @@
+<div class="user-management-container">
+
+  <div class="header">
+    <h5>Brand</h5>
+  </div>
+
+  @if (message()) {
+    <div class="alert text-center"
+         [class.alert-success]="messageType() === 'success'"
+         [class.alert-danger]="messageType() === 'error'">
+      {{ message() }}
+    </div>
+  }
+
+  @if (List().length > 0) {
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>SN</th>
+          <th>Name</th>
+          <th>Parent Category</th>
+          <th>Sub Categories Count</th>
+          <th class="text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (dataList of List(); track dataList.id; let i = $index) {
+          <tr>
+            <td>{{ i + 1 }}</td>
+
+            <!-- Category Name -->
+            <td>
+              @if (editingCategory() === dataList.id) {
+                <input type="text"
+                       class="form-control form-control-sm"
+                       [(ngModel)]="dataList.categoryName" />
+              } @else {
+                {{ dataList.categoryName }}
+              }
+            </td>
+
+            <!-- Parent Category Dropdown -->
+            <td>
+              @if (editingCategory() === dataList.id) {
+                <select class="form-select form-select-sm"
+                        [(ngModel)]="dataList.parentCategoryId">
+                  <option [ngValue]="0">-- No Parent --</option>
+                  @for (cat of List(); track cat.id) {
+                    @if (cat.id !== dataList.id) { <!-- নিজের parent না হয় -->
+                      <option [ngValue]="cat.id">{{ cat.categoryName }}</option>
+                    }
+                  }
+                </select>
+              } @else {
+                {{ dataList.parentCategory?.categoryName || '-' }}
+              }
+            </td>
+
+            <!-- Sub Category Count -->
+            <td>{{ dataList.subCategories.length || 0 }}</td>
+
+            <!-- Actions -->
+            <td class="text-center">
+              @if (editingCategory() !== dataList.id) {
+                <button class="btn btn-sm btn-outline-info me-2"
+                        (click)="startEdit(dataList.id)">
+                  Edit
+                </button>
+              }
+              @if (editingCategory() === dataList.id) {
+                <button class="btn btn-sm btn-outline-success me-2"
+                        (click)="saveEdit(dataList)">
+                  Save
+                </button>
+                <button class="btn btn-sm btn-outline-secondary me-2"
+                        (click)="cancelEdit()">
+                  Cancel
+                </button>
+              }
+              <button class="btn btn-sm btn-outline-danger"
+                      (click)="DeleteCetegory(dataList.id)">
+                Delete
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+  @else {
+    <div class="no-users text-center mt-4">
+      <h5>No Brand Found</h5>
+      <p>Try adding some Brand first.</p>
+    </div>
+  }
+
+</div>

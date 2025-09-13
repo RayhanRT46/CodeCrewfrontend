@@ -9,21 +9,39 @@
       <form (ngSubmit)="onLogin()">
         <div class="mb-3">
           <label for="email" class="form-label fw-semibold">Email</label>
-          <input type="email" class="form-control form-control-lg rounded-3" [(ngModel)]="email" id="email" name="email" placeholder="Enter your email">
+          <input 
+            type="email" 
+            class="form-control form-control-lg rounded-3" 
+            [(ngModel)]="email" 
+            id="email" 
+            name="email" 
+            placeholder="Enter your email">
         </div>
 
         <div class="mb-3">
           <label for="password" class="form-label fw-semibold">Password</label>
-          <input type="password" class="form-control form-control-lg rounded-3" [(ngModel)]="password" id="password" name="password" placeholder="Enter your password">
+          <input 
+            type="password" 
+            class="form-control form-control-lg rounded-3" 
+            [(ngModel)]="password" 
+            id="password" 
+            name="password" 
+            placeholder="Enter your password">
         </div>
+
+        <!-- Message -->
         @if (isError) {
-           <p class="text-warning">{{message}}</p>
-          
+          <p class="text-warning">{{ message }}</p>
+        } @else {
+          @if (message) {
+            <p class="text-success">{{ message }}</p>
+          }
         }
-        @else if (!isError) {
-          <p class="text-success">{{message}}</p>
-        }
-        <button type="submit" class="btn btn-primary w-100 btn-lg rounded-3 mb-3" style="background: linear-gradient(90deg, #4f46e5, #3b82f6); border: none;">
+
+        <button 
+          type="submit" 
+          class="btn btn-primary w-100 btn-lg rounded-3 mb-3"
+          style="background: linear-gradient(90deg, #4f46e5, #3b82f6); border: none;">
           Login
         </button>
       </form>

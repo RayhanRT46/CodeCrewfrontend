@@ -3,30 +3,34 @@
     <i class="bi bi-person-plus-fill text-primary me-2"></i> Add Brand
   </h2>
 
-<form [formGroup]="brandForm" (ngSubmit)="onSubmit()">
-  <!-- Brand Name -->
-  <div class="mb-3">
-    <input type="text" class="form-control" placeholder="Brand Name" formControlName="name">
-    <div *ngIf="brandForm.get('name')?.invalid && brandForm.get('name')?.touched" class="text-danger small mt-1">
-      Brand name is required
+  <form [formGroup]="brandForm" (ngSubmit)="onSubmit()">
+    <!-- Brand Name -->
+    <div class="mb-3">
+      <input type="text" class="form-control" placeholder="Brand Name" formControlName="name">
+      @if (brandForm.get('name')?.invalid && brandForm.get('name')?.touched) {
+        <div class="text-danger small mt-1">
+          Brand name is required
+        </div>
+      }
     </div>
-  </div>
 
-  <!-- Brand Logo -->
-  <div class="mb-3">
-    <input type="text" class="form-control" placeholder="Brand Logo URL" formControlName="logoUrl">
-    <div *ngIf="brandForm.get('logoUrl')?.invalid && brandForm.get('logoUrl')?.touched" class="text-danger small mt-1">
-      Brand logo is required
+    <!-- Brand Logo -->
+    <div class="mb-3">
+      <input type="text" class="form-control" placeholder="Brand Logo URL" formControlName="logoUrl">
+      @if (brandForm.get('logoUrl')?.invalid && brandForm.get('logoUrl')?.touched) {
+        <div class="text-danger small mt-1">
+          Brand logo is required
+        </div>
+      }
     </div>
-  </div>
 
-  <!-- Submit Button -->
-  <div class="d-grid mb-2">
-    <button type="submit" class="btn btn-primary btn-lg">
-      <i class="bi bi-check-lg me-1"></i> Save Brand
-    </button>
-  </div>
-</form>
+    <!-- Submit Button -->
+    <div class="d-grid mb-2">
+      <button type="submit" class="btn btn-primary btn-lg">
+        <i class="bi bi-check-lg me-1"></i> Save Brand
+      </button>
+    </div>
+  </form>
 
   <!-- Back Button -->
   <div class="d-grid">
@@ -36,5 +40,7 @@
   </div>
 
   <!-- Message -->
-  <p *ngIf="message" class="mt-3 text-center text-success fw-bold">{{ message }}</p>
+  @if (message) {
+    <p class="mt-3 text-center text-success fw-bold">{{ message }}</p>
+  }
 </div>

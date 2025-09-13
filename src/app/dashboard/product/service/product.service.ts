@@ -19,12 +19,8 @@ public GetBrand(): Observable<BrandModel[]> {
   }
 
 // Add a Brand
-public BrandAdd(req: any, token: string): Observable<any> {
-  const headers = new HttpHeaders({
-    'Authorization': `Bearer ${token}`,
-    'Content-Type': 'application/json'
-  });
-  return this.http.post(`${this.baseUrl + `Brands/CreateBrand`}`, req, { headers });
+public BrandAdd(req: any): Observable<any> {
+  return this.http.post(`${this.baseUrl + `Brands/CreateBrand`}`, req);
 }
 
 //Update a Brand
@@ -32,9 +28,29 @@ public UpdateBrand(id: number , data: any): Observable<any>{
   return this.http.put<BrandModel2>(`${this.baseUrl + `Brands/ProductBrand`}/${id}`, data)
 }
 
-//Delete a User
+//Delete a Brand
 public Deletebrand(id:number): Observable<any>{
   return this.http.delete(`${this.baseUrl+`Brands/DeletBrand`}/${id}`);
 }
 
+//<---- Cetegory ----->
+// All Cetegory
+public GetCetegory(): Observable<BrandModel[]> {
+    return this.http.get<BrandModel[]>(this.baseUrl+'Cetegorys/GetAllCetegory');
+  }
+
+// Add a Cetegory
+public AddCetegory(req: any): Observable<any> {
+  return this.http.post(`${this.baseUrl + `Cetegorys/CreateCategory`}`, req);
+}
+
+//Update a Cetegory
+public UpdateCetegory(id: number , data: any): Observable<any>{
+  return this.http.put<any>(`${this.baseUrl + `Cetegorys/CategoryUpdate`}/${id}`, data)
+}
+
+//Delete a Cetegory
+public DeleteCetegory(id:number): Observable<any>{
+  return this.http.delete(`${this.baseUrl+`Cetegorys/CategoryDelete`}/${id}`);
+}
 }

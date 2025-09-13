@@ -1,8 +1,7 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../service/login.service';
 import { userModel } from './userModel';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -18,7 +17,7 @@ export class AllUsers implements OnInit {
   userList: userModel[] = [];
   router: any;
 
-  constructor(public service: LoginService, private route: ActivatedRoute) {
+  constructor(public service: LoginService) {
   }
 
   ngOnInit(): void {

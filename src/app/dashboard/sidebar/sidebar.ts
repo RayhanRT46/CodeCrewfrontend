@@ -4,7 +4,7 @@ import { Component, EventEmitter, Output, Input } from '@angular/core';
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ],
   templateUrl: './sidebar.html',
   styleUrls: ['./sidebar.css'],
 })
