@@ -9,7 +9,7 @@ import { CategoryModel } from './cetegorydModel';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './cetegory.html',
-  styleUrl: './cetegory.css'
+  styleUrls: ['./cetegory.css', '../common.css']
 })
 export class Cetegory {
   List = signal<CategoryModel[]>([]);
@@ -86,7 +86,7 @@ DeleteCetegory(id: number) {
   if(confirm('Are you sure you want to delete this Category?')){
     this.service.DeleteCetegory(id).subscribe({
       next: (res: any) => {
-        this.message.set(res.message); // API থেকে আসা message
+        this.message.set('Delete successfull');
         this.messageType.set('success');
         this.loadCetegory();
       },
@@ -97,5 +97,4 @@ DeleteCetegory(id: number) {
     })
   }
 }
-    
 }

@@ -19,10 +19,9 @@ public GetUser(): Observable<userModel[]> {
     return this.http.get<userModel[]>(this.baseUrl+'User');
   }
 
-
 //Delete a User
 public DeleteUser(id:number): Observable<any>{
-  return this.http.delete(`${this.baseUrl+`User`}/${id}`);
+  return this.http.delete(`${this.baseUrl+`/User/DeletUser/`}/${id}`);
 }
 
 //Update a User

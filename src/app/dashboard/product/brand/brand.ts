@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './brand.html',
-  styleUrl: './brand.css'
+  styleUrls: ['./brand.css', '../common.css']
 })
 export class Brand {
   public brandList: BrandModel[] = [];
@@ -20,7 +20,7 @@ export class Brand {
   constructor(public service: ProductService, route: ActivatedRoute) { 
 
   }
-
+  
   ngOnInit(): void {
     this.loadBrand();
   }
@@ -54,8 +54,6 @@ DeleteBrand(id: number) {
       })
   }
 }
-
-
 //Update Brand
 editingUserId: number | null = null;
 startEdit(userId: number) {

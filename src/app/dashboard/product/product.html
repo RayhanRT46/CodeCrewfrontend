@@ -1,1 +1,67 @@
-<p>product works!</p>
+<div class="user-management-container">
+  @if (message) {
+    <div class="alert text-center"
+         [ngClass]="messageType === 'success' ? 'alert-success' : 'alert-danger'">
+      {{ message }}
+    </div>
+  }
+
+  @if (dataList.length > 0) {
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>SN</th>
+          <th>Name</th>
+          <th class="text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (data of dataList; track data.id; let i = $index) {
+          <tr>
+            <td data-label="SN">{{ i + 1 }}</td>
+
+            @if (editingUserId !== data.id) {
+              <td data-label="Name" class="fw-semibold">{{ data.productTypeName }}</td>
+            }
+            @else {
+              <td data-label="Name">
+                <input [(ngModel)]="data.productTypeName" class="form-control form-control-sm" />
+              </td>
+            }
+
+            <td data-label="Actions" class="text-center">
+              @if (editingUserId !== data.id) {
+                <button class="btn btn-sm btn-outline-info me-2"
+                        (click)="startEdit(data.id)">
+                  Edit
+                </button>
+              }
+              @else {
+                <button class="btn btn-sm btn-outline-success me-2"
+                        (click)="saveEdit(data)">
+                  Save
+                </button>
+                <button class="btn btn-sm btn-outline-secondary me-2"
+                        (click)="cancelEdit()">
+                  Cancel
+                </button>
+              }
+
+              <button class="btn btn-sm btn-outline-danger"
+                      (click)="DeleteBrand(data.id)">
+                Delete
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+  @else {
+    <div class="no-users text-center">
+      <h5>No Product Type Found</h5>
+      <p>Try adding some Product Type first.</p>
+    </div>
+  }
+
+</div>

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Data, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { BrandModel, BrandModel2 } from '../brand/brandModel';
+import { productTypeModel } from '../product-types/productTypeModel';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,7 @@ public UpdateBrand(id: number , data: any): Observable<any>{
 
 //Delete a Brand
 public Deletebrand(id:number): Observable<any>{
+    debugger
   return this.http.delete(`${this.baseUrl+`Brands/DeletBrand`}/${id}`);
 }
 
@@ -52,5 +54,48 @@ public UpdateCetegory(id: number , data: any): Observable<any>{
 //Delete a Cetegory
 public DeleteCetegory(id:number): Observable<any>{
   return this.http.delete(`${this.baseUrl+`Cetegorys/CategoryDelete`}/${id}`);
+}
+
+
+//<---- ProductType ----->
+// All ProductType
+public GetProductType(): Observable<productTypeModel[]> {
+    return this.http.get<productTypeModel[]>(this.baseUrl+'ProductTypes/GetAllProductTypes');
+  }
+
+// Add a ProductType
+public AddProductType(req: any): Observable<any> {
+  return this.http.post(`${this.baseUrl + `ProductTypes/CreateProductTypes`}`, req);
+}
+
+//Update a ProductType
+public UpdateProductType(id: number , data: any): Observable<any>{
+  return this.http.put<any>(`${this.baseUrl + `ProductTypes/ProductTypes`}/${id}`, data)
+}
+
+//Delete a ProductType
+public DeleteProductType(id:number): Observable<any>{
+  return this.http.delete(`${this.baseUrl+`ProductTypes/DeletProductTypes`}/${id}`);
+}
+
+//<---- Product ----->
+// All ProductType
+public GetProduct(): Observable<productTypeModel[]> {
+    return this.http.get<productTypeModel[]>(this.baseUrl+'Products/GetAllProduct');
+  }
+
+// Add a ProductType
+public AddProduct(req: any): Observable<any> {
+  return this.http.post(`${this.baseUrl + `ProductTypes/CreateProductTypes`}`, req);
+}
+
+//Update a ProductType
+public UpdateProduct(id: number , data: any): Observable<any>{
+  return this.http.put<any>(`${this.baseUrl + `ProductTypes/ProductTypes`}/${id}`, data)
+}
+
+//Delete a ProductType
+public DeleteProduct(id:number): Observable<any>{
+  return this.http.delete(`${this.baseUrl+`ProductTypes/DeletProductTypes`}/${id}`);
 }
 }

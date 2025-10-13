@@ -1,2 +1,50 @@
-<p>home works!</p>
-<a>home</a>
+<div class="container my-5">
+
+  <!-- Hero Section -->
+  <div class="bg-primary text-white rounded-4 p-5 text-center mb-5">
+    <h1 class="display-5 fw-bold">Welcome to EasyShop</h1>
+    <p class="lead">Discover amazing products at the best prices!</p>
+    <a class="btn btn-light btn-lg mt-3" href="#">Shop Now</a>
+  </div>
+
+  <!-- Categories Section -->
+  <h3 class="mb-4">Shop by Category</h3>
+  <div class="row g-4 mb-5">
+    <div class="col-md-3" *ngFor="let cat of categories">
+      <div class="card h-100 shadow-sm">
+        <img [src]="cat.img" class="card-img-top" [alt]="cat.name">
+        <div class="card-body text-center">
+          <h5 class="card-title text-capitalize">{{ cat.name }}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Featured Products -->
+<div class="container my-5">
+  <h3 class="mb-4">Featured Products</h3>
+  <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+    <div class="col" *ngFor="let product of products">
+      <div class="card h-100 shadow-sm border-0 product-card">
+        <div class="card-img-top d-flex align-items-center justify-content-center p-3" style="height: 200px; overflow: hidden;">
+          <img [src]="product.image" class="product-img img-fluid" [alt]="product.title">
+        </div>
+        <div class="card-body text-center">
+          <h6 class="card-title">{{ product.title | slice:0:40 }}...</h6>
+          <p class="card-text fw-bold text-success">${{ product.price }}</p>
+          <button class="btn btn-primary btn-sm w-100">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+  <!-- Loading Spinner -->
+  <div *ngIf="loading" class="text-center my-5">
+    <div class="spinner-border text-primary" role="status"></div>
+  </div>
+
+</div>

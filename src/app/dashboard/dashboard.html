@@ -7,31 +7,14 @@
   <div class="dashboard-content flex-grow-1 p-4">
     @switch (activeMenu){
 
-      <!-- Users -->
-      @case('users') {
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <h3 class="fw-bold mb-0">
-            <i class="bi bi-people-fill text-primary me-2"></i> Users
-          </h3>
-          <button class="btn btn-primary" (click)="AddUserRoute()">
-            <i class="bi bi-plus-lg me-1"></i> Add User
-          </button>
-        </div>
-        @if(activeAddSection === 'users') {
-          <app-registeruseradmin (back)="backUserRoute()"></app-registeruseradmin>
-        } @else {
-          <app-all-users></app-all-users>
-        }
-      }
-
       <!-- Brand -->
       @case('brand') {
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h3 class="fw-bold mb-0">
-            <i class="bi bi-bootstrap fs-1 text-primary me-2"></i> Brand
+            <i class="bi bi-award-fill text-primary me-2"></i> Brand
           </h3>
           <button class="btn btn-primary" (click)="AddBrandRoute()">
-            <i class="bi bi-plus-lg me-1"></i> Add Brand
+            <i class="bi bi-plus-circle-fill me-1"></i> Add Brand
           </button>
         </div>
         @if(activeAddSection === 'brand') {
@@ -45,10 +28,10 @@
       @case('cetegory') {
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h3 class="fw-bold mb-0">
-            <i class="bi bi-bootstrap fs-1 text-primary me-2"></i> Category
+            <i class="bi bi-tags-fill text-primary me-2"></i> Category
           </h3>
           <button class="btn btn-primary" (click)="AddCetegoryRoute()">
-            <i class="bi bi-plus-lg me-1"></i> Add Category
+            <i class="bi bi-plus-circle-fill me-1"></i> Add Category
           </button>
         </div>
         @if(activeAddSection === 'cetegory') {
@@ -58,14 +41,31 @@
         }
       }
 
+      <!-- Product Type -->
+      @case('product-type') {
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h3 class="fw-bold mb-0">
+            <i class="bi bi-diagram-3-fill text-primary me-2"></i> Product Types
+          </h3>
+          <button class="btn btn-primary" (click)="AddProductTypeRoute()">
+            <i class="bi bi-plus-circle-fill me-1"></i> Add Product Type
+          </button>
+        </div>
+        @if(activeAddSection === 'product-type') {
+          <app-product-types-create (back)="backProductTypeRoute()"></app-product-types-create>
+        } @else {
+          <app-product-types></app-product-types>
+        }
+      }
+
       <!-- Product -->
       @case('product') {
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h3 class="fw-bold mb-0">
-            <i class="bi bi-box-seam fs-1 text-primary me-2"></i> Product
+            <i class="bi bi-box-seam-fill text-primary me-2"></i> Product
           </h3>
           <button class="btn btn-primary" (click)="AddProductRoute()">
-            <i class="bi bi-plus-lg me-1"></i> Add Product
+            <i class="bi bi-plus-circle-fill me-1"></i> Add Product
           </button>
         </div>
         @if(activeAddSection === 'product') {
@@ -75,10 +75,27 @@
         }
       }
 
+      <!-- Users -->
+      @case('users') {
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h3 class="fw-bold mb-0">
+            <i class="bi bi-people-fill text-primary me-2"></i> Users
+          </h3>
+          <button class="btn btn-primary" (click)="AddUserRoute()">
+            <i class="bi bi-person-plus-fill me-1"></i> Add User
+          </button>
+        </div>
+        @if(activeAddSection === 'users') {
+          <app-registeruseradmin (back)="backUserRoute()"></app-registeruseradmin>
+        } @else {
+          <app-all-users></app-all-users>
+        }
+      }
+
       <!-- Settings -->
       @case('settings') {
         <h3 class="fw-bold mb-3">
-          <i class="bi bi-gear-fill text-warning me-2"></i> Settings
+          <i class="bi bi-sliders text-warning me-2"></i> Settings
         </h3>
         <p class="text-muted">Configure application preferences.</p>
       }
@@ -86,7 +103,7 @@
       <!-- Default -->
       @case('Default') {
         <h3 class="fw-bold">
-          <i class="bi bi-house-door-fill text-info me-2"></i> Welcome to Dashboard!
+          <i class="bi bi-speedometer2 text-info me-2"></i> Welcome to Dashboard!
         </h3>
         <p class="text-muted">Select a menu item to continue.</p>
       }
