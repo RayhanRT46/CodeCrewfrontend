@@ -1,0 +1,181 @@
+<div class="product-create-container container py-4">
+
+  @if (message) {
+    <div class="alert text-center"
+         [ngClass]="messageType === 'success' ? 'alert-success' : 'alert-danger'">
+      {{ message }}
+    </div>
+  }
+
+  <div class="card shadow-sm border-0">
+    <div class="card-header bg-primary text-white fw-semibold">
+      <i class="bi bi-plus-circle me-2"></i> Create New Product
+    </div>
+
+    <div class="card-body">
+      <form [formGroup]="productForm"
+            (ngSubmit)="onSubmit()"
+            enctype="multipart/form-data"
+            class="row g-3">
+
+        <!-- Product Name -->
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Product Name</label>
+          <input formControlName="productName"
+                 class="form-control"
+                 placeholder="Enter product name" />
+        </div>
+
+        <!-- Slug -->
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Slug</label>
+          <input formControlName="slug"
+                 class="form-control"
+                 placeholder="e.g. smart-watch-series-9" />
+        </div>
+
+        <!-- Description -->
+        <div class="col-12">
+          <label class="form-label fw-semibold">Description</label>
+          <textarea formControlName="description"
+                    rows="3"
+                    class="form-control"
+                    placeholder="Write a short product description..."></textarea>
+        </div>
+
+        <!-- Price & Sale Price -->
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Price</label>
+          <input type="number"
+                 formControlName="price"
+                 class="form-control"
+                 placeholder="Enter regular price" />
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Sale Price</label>
+          <input type="number"
+                 formControlName="salePrice"
+                 class="form-control"
+                 placeholder="Enter sale price (optional)" />
+        </div>
+
+        <!-- Stock Quantity -->
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Stock Quantity</label>
+          <input type="number"
+                 formControlName="stockQuantity"
+                 class="form-control"
+                 placeholder="e.g. 50" />
+        </div>
+
+        <!-- Weight & Unit -->
+        <div class="col-md-3">
+          <label class="form-label fw-semibold">Weight Unit</label>
+          <input formControlName="weightUnit"
+                 class="form-control"
+                 placeholder="e.g. kg, g, lb" />
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label fw-semibold">Unit Quantity</label>
+          <input formControlName="unitQuantity"
+                 class="form-control"
+                 placeholder="e.g. 1, 2, 10" />
+        </div>
+
+        <!-- Dropdowns -->
+        <div class="col-md-4">
+          <label class="form-label fw-semibold">Category</label>
+          <select formControlName="categoryId" class="form-select">
+            <option value="">Select Category</option>
+            @for (cat of categories; track cat.id) {
+              <option [value]="cat.id">{{ cat.categoryName }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-semibold">Brand</label>
+          <select formControlName="brandId" class="form-select">
+            <option value="">Select Brand</option>
+            @for (brand of brands; track brand.id) {
+              <option [value]="brand.id">{{ brand.name }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-semibold">Product Type</label>
+          <select formControlName="productTypeId" class="form-select">
+            <option value="">Select Type</option>
+            @for (type of productTypes; track type.id) {
+              <option [value]="type.id">{{ type.productTypeName }}</option>
+            }
+          </select>
+        </div>
+
+        <!-- Attributes Section -->
+        <div class="col-12 mt-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <h6 class="fw-semibold mb-0">Product Attributes</h6>
+            <button type="button"
+                    class="btn btn-sm btn-outline-primary"
+                    (click)="addAttribute()">
+              <i class="bi bi-plus-circle"></i> Add Attribute
+            </button>
+          </div>
+          <hr />
+        </div>
+
+        @for (attr of attributes.controls; track $index; let i = $index) {
+          <div class="col-md-5">
+            <input type="text"
+                   [formControl]="getAttributeControl(attr, 'name')"
+                   class="form-control"
+                   placeholder="Attribute Name (e.g. Color)" />
+          </div>
+
+          <div class="col-md-5">
+            <input type="text"
+                   [formControl]="getAttributeControl(attr, 'value')"
+                   class="form-control"
+                   placeholder="Attribute Value (e.g. Red)" />
+          </div>
+
+          <div class="col-md-2 text-end">
+            <button type="button"
+                    class="btn btn-outline-danger w-100"
+                    (click)="removeAttribute(i)">
+              <i class="bi bi-x-circle"></i>
+            </button>
+          </div>
+        }
+
+        <!-- Images -->
+        <div class="col-12 mt-3">
+          <label class="form-label fw-semibold">Product Images</label>
+          <input type="file"
+                 class="form-control"
+                 multiple
+                 (change)="onFileChange($event)" />
+          <div class="form-text">You can select multiple images</div>
+        </div>
+
+        <!-- Submit -->
+        <div class="col-12 text-end mt-4">
+          <button class="btn btn-success px-4" type="submit">
+            <i class="bi bi-check-circle me-1"></i> Save Product
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+    <!-- Back Button -->
+  <div class="d-grid">
+    <button type="button" class="btn btn-outline-secondary" (click)="onBackClick()">
+      <i class="bi bi-arrow-left me-1"></i> Back
+    </button>
+  </div>
+</div>

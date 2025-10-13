@@ -79,22 +79,22 @@ public DeleteProductType(id:number): Observable<any>{
 }
 
 //<---- Product ----->
-// All ProductType
+// All Product
 public GetProduct(): Observable<productTypeModel[]> {
     return this.http.get<productTypeModel[]>(this.baseUrl+'Products/GetAllProduct');
   }
 
-// Add a ProductType
+// Add a Product
 public AddProduct(req: any): Observable<any> {
-  return this.http.post(`${this.baseUrl + `ProductTypes/CreateProductTypes`}`, req);
-}
+    return this.http.post(`${this.baseUrl + `Products/CreateProduct`}`, req ) ;
+  }
 
-//Update a ProductType
+//Update a Product
 public UpdateProduct(id: number , data: any): Observable<any>{
   return this.http.put<any>(`${this.baseUrl + `ProductTypes/ProductTypes`}/${id}`, data)
 }
 
-//Delete a ProductType
+//Delete a Product
 public DeleteProduct(id:number): Observable<any>{
   return this.http.delete(`${this.baseUrl+`ProductTypes/DeletProductTypes`}/${id}`);
 }

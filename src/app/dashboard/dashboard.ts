@@ -6,16 +6,17 @@ import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { Registeruseradmin } from "./user/registeruseradmin/registeruseradmin";
 import { Brand } from './product/brand/brand';
 import { BrandCreate } from './product/brand/brand-create/brand-create';
-import { product } from "./product/product";
+import { Product } from "./product/product";
 import { Cetegory } from "./product/cetegory/cetegory";
 import { CreateCetegory } from "./product/cetegory/createcetegory/createcetegory";
 import { ProductTypes } from "./product/product-types/product-types";
 import { ProductTypesCreate } from "./product/product-types/product-types-create/product-types-create";
+import { ProductCreate } from "./product/product-create/product-create";
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, Sidebar, AllUsers, RouterModule, Registeruseradmin, Brand, BrandCreate, Cetegory, CreateCetegory, ProductTypes, ProductTypesCreate, product],
+  imports: [CommonModule, Sidebar, AllUsers, RouterModule, Registeruseradmin, Brand, BrandCreate, Cetegory, CreateCetegory, ProductTypes, ProductTypesCreate, Product, ProductCreate],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.css'],
 })

@@ -1,10 +1,13 @@
-<div class="dashboard-container d-flex">
-  <app-sidebar
-    [activeMenu]="activeMenu"
-    (menuClick)="onMenuClick($event)">
-  </app-sidebar>
+<div class="d-flex" style="height: 100%;">
+  
+  <!-- Sidebar -->
+  <div class="position-sticky top-0 vh-100 border-end bg-white shadow-sm" 
+       style="width: 250px; overflow-y: auto;">
+    <app-sidebar [activeMenu]="activeMenu" (menuClick)="onMenuClick($event)"></app-sidebar>
+  </div>
 
-  <div class="dashboard-content flex-grow-1 p-4">
+  <!-- Dashboard Content -->
+  <div class="flex-grow-1 p-4" style="overflow-y: auto; background-color: #f8f9fa;">
     @switch (activeMenu){
 
       <!-- Brand -->
@@ -69,7 +72,7 @@
           </button>
         </div>
         @if(activeAddSection === 'product') {
-          <h1></h1>
+          <app-product-create (back)="backProductRoute()"></app-product-create>
         } @else {
           <app-product></app-product>
         }
@@ -108,6 +111,7 @@
         <p class="text-muted">Select a menu item to continue.</p>
       }
 
-   }
+    }
   </div>
+
 </div>
