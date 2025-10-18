@@ -12,27 +12,37 @@ import { ProductService } from '../../service/product.service';
 })
 export class BrandCreate {
   @Output() back = new EventEmitter<void>();
-
   brandForm: FormGroup;
   message = '';
+  selectedFile: File | null = null;
 
   constructor(private fb: FormBuilder, private service: ProductService) {
     this.brandForm = this.fb.group({
       name: ['', Validators.required],
-      logoUrl: ['', Validators.required]
+      imageFile: [null, Validators.required]
     });
   }
 
+  onFileChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+      this.brandForm.patchValue({ imageFile: file });
+    }
+  }
+
   onSubmit() {
-    if (this.brandForm.invalid) return;
-    const brandData = {
-      name: this.brandForm.get('name')?.value,
-      logoUrl: this.brandForm.get('logoUrl')?.value
-    };
-    this.service.BrandAdd(brandData).subscribe({
+    if (this.brandForm.invalid || !this.selectedFile) return;
+
+    const formData = new FormData();
+    formData.append('Name', this.brandForm.get('name')?.value);
+    formData.append('ImageFile', this.selectedFile);
+
+    this.service.BrandAdd(formData).subscribe({
       next: () => {
         this.message = '✅ Brand added successfully!';
         this.brandForm.reset();
+        this.selectedFile = null;
         this.back.emit();
       },
       error: () => {

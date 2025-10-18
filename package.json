@@ -30,6 +30,7 @@
     "@angular/router": "^20.2.0",
     "@auth0/angular-jwt": "^5.2.0",
     "@ng-bootstrap/ng-bootstrap": "^19.0.1",
+    "@tinymce/tinymce-angular": "^9.1.0",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.13.1",
     "jwt-decode": "^4.0.0",

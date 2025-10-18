@@ -4,29 +4,30 @@ import { Observable } from 'rxjs';
 import { userModel } from '../all-users/userModel';
 import { Router } from '@angular/router';
 import { Registeruseradmin } from '../registeruseradmin/registeruseradmin';
+import { environment } from '../../../environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
   
-   baseUrl:string = 'https://localhost:7229/api/'
+   baseUrl:string = environment.apiUrl;
   constructor(public http:HttpClient , public router: Router)
   {
   }
 // All User Get
 public GetUser(): Observable<userModel[]> {
-    return this.http.get<userModel[]>(this.baseUrl+'User');
+    return this.http.get<userModel[]>(this.baseUrl+'/api/User');
   }
 
 //Delete a User
 public DeleteUser(id:number): Observable<any>{
-  return this.http.delete(`${this.baseUrl+`/User/DeletUser/`}/${id}`);
+  return this.http.delete(`${this.baseUrl+`/api/User/DeletUser`}/${id}`);
 }
 
 //Update a User
 public UpdateUser(id: number, user: userModel): Observable<userModel>{
-  return this.http.put<userModel>(`${this.baseUrl + `User`}/${user.id}`, user)
+  return this.http.put<userModel>(`${this.baseUrl + `/api/User`}/${user.id}`, user)
 }
 
 
@@ -37,13 +38,13 @@ public UpdateUser(id: number, user: userModel): Observable<userModel>{
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
     });
-    return this.http.post(`${this.baseUrl + `User/register-user-admin`}`, req, { headers });
+    return this.http.post(`${this.baseUrl + `/api/User/register-admin`}`, req, { headers });
   }
 
 
 //Login API call
   login(email: string, password: string): Observable<any> {
-    return this.http.post(this.baseUrl +'User/login', { email, password });
+    return this.http.post(this.baseUrl +'/api/User/login', { email, password });
   }
 
   // Save token & user

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { BrandModel } from './brandModel';
 import { ProductService } from '../service/product.service';
-import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../../environment';
 
 @Component({
   selector: 'app-brand',
@@ -13,72 +13,85 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./brand.css', '../common.css']
 })
 export class Brand {
-  public brandList: BrandModel[] = [];
-  route: any;
-  message: string = '';
+  BACKEND_URL = environment.apiUrl;
+  brandList: BrandModel[] = [];
+  message = '';
   messageType: 'success' | 'error' = 'success';
-  constructor(public service: ProductService, route: ActivatedRoute) { 
+  editingUserId: number | null = null;
 
-  }
-  
+  constructor(public service: ProductService) {}
+
   ngOnInit(): void {
     this.loadBrand();
   }
 
-loadBrand() {
-  this.service.GetBrand().subscribe({
-    next: (data) => {
-      this.brandList = data;
-    },
-    error: (err) => {
-      this.message = "Please try agine";
-      this.messageType = 'error';
-    }
-  })
-}
+  // ✅ Fixed loadBrand()
+  loadBrand() {
+    this.service.GetBrand().subscribe({
+      next: (res: any[]) => {
+        this.brandList = res.map(brand => ({
+          ...brand,
+          logoUrl: brand.logoUrl?.startsWith('http')
+            ? brand.logoUrl
+            : `${this.BACKEND_URL}${brand.logoUrl}`
+        }));
+      },
+      error: err => {
+        console.error('Failed to load brands', err);
+        this.message = '❌ Failed to load brands';
+        this.messageType = 'error';
+      }
+    });
+  }
 
-//Delete Brand
-DeleteBrand(id: number) {
-  if (confirm('Are you Delete this Brand?')) {
-    this.service.Deletebrand(id).subscribe(
-      {
+  DeleteBrand(id: number) {
+    if (confirm('Are you sure you want to delete this brand?')) {
+      this.service.Deletebrand(id).subscribe({
         next: () => {
-          this.message = "Delete successfull";
+          this.message = "✅ Deleted successfully";
           this.messageType = 'success';
           this.loadBrand();
         },
-        error: (err) => {
-          this.message = "Delete failed";
+        error: () => {
+          this.message = "❌ Delete failed";
           this.messageType = 'error';
         }
-      })
+      });
+    }
   }
-}
-//Update Brand
-editingUserId: number | null = null;
-startEdit(userId: number) {
-  this.editingUserId = userId;
-}
 
-saveEdit(brand: any) {
-  this.service.UpdateBrand(brand.id, brand).subscribe({
-    next: () => {
-      this.message = '✅ User updated successfully!';
-      this.messageType = 'success';
-      this.editingUserId = null;
-      this.loadBrand(); // refresh list
-      setTimeout(() => this.message = '', 1000);
-    },
-  error: (err) => {
-    console.log(err);
-    this.message = `❌ Failed to update user! (${err.status} ${err.statusText})`;
+  startEdit(id: number) {
+    this.editingUserId = id;
   }
-  });
-}
 
-cancelEdit() {
-  this.editingUserId = null;
-}
+  onFileChange(event: any, brand: any) {
+    const file = event.target.files[0];
+    if (file) brand.selectedFile = file;
+  }
 
+  saveEdit(brand: any) {
+    const formData = new FormData();
+    formData.append('Name', brand.name);
+    if (brand.selectedFile) {
+      formData.append('ImageFile', brand.selectedFile);
+    }
 
+    this.service.UpdateBrand(brand.id, formData).subscribe({
+      next: () => {
+        this.message = '✅ Brand updated successfully!';
+        this.messageType = 'success';
+        this.editingUserId = null;
+        this.loadBrand();
+      },
+      error: (err) => {
+        console.error(err);
+        this.message = '❌ Failed to update brand!';
+        this.messageType = 'error';
+      }
+    });
+  }
+
+  cancelEdit() {
+    this.editingUserId = null;
+  }
 }

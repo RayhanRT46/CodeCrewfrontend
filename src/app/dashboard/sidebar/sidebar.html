@@ -45,6 +45,15 @@
       </ul>
       }
 
+      <!-- Pages -->
+      <li class="nav-item sidebar-item"
+        [class.active]="activeMenu === 'pages'"
+        (click)="selectMenu('pages')">
+        <i class="bi bi-people-fill me-2"></i>
+        @if (!isCollapsed) {
+        <span>Pages</span>
+        }
+      </li>
       <!-- Users -->
       <li class="nav-item sidebar-item"
         [class.active]="activeMenu === 'users'"

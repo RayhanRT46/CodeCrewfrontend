@@ -1,1 +1,184 @@
-<h1>This is product list</h1>
+<div class="container my-4">
+
+  @if (message) {
+    <div class="alert text-center" [ngClass]="messageType === 'success' ? 'alert-success' : 'alert-danger'">
+      <span [innerHTML]="message"></span> 
+    </div>
+  }
+
+  <div class="d-flex align-items-center mb-3">
+    <div class="me-3">
+      <label class="form-label mb-0 fw-semibold">Bulk Actions:</label>
+    </div>
+    <select class="form-select w-auto me-2" [(ngModel)]="bulkActionType" name="bulkActionType">
+      <option value="">Choose Action...</option>
+      <option value="activate">Activate</option>
+      <option value="deactivate">Deactivate</option>
+      <option value="delete">Delete</option>
+    </select>
+    <button class="btn btn-primary" (click)="performBulkAction()" [disabled]="selectedProducts.length === 0 || !bulkActionType">
+      Apply
+    </button>
+    <span class="ms-3 text-muted">Selected: {{ selectedProducts.length }}</span>
+  </div>
+
+  <div class="table-responsive shadow-sm">
+    <table class="table align-middle table-bordered">
+      <thead class="table-light">
+        <tr>
+          <th style="width: 50px;">
+            <input type="checkbox" class="form-check-input" [checked]="selectAll" (change)="toggleSelectAll($event.target.checked)">
+          </th>
+          <th>S/N</th> 
+          <th>Image</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Stock</th>
+          <th>Status</th>
+          <th class="text-center">Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (product of productList; track product.id; let i = $index) {
+          <tr>
+            <td>
+              <input 
+                type="checkbox" 
+                class="form-check-input" 
+                [checked]="selectedProducts.includes(product.id)"
+                (change)="toggleProductSelection(product.id, $event.target.checked)">
+            </td>
+            <td>{{ i + 1 }}</td> 
+            <td style="width: 60px">
+              <img [src]="product.images?.[0]?.imageUrl" class="img-fluid rounded" alt="product" />
+            </td>
+            <td>{{ product.productName }}</td>
+            <td>${{ product.price }}</td>
+            <td>{{ product.stockQuantity }}</td>
+            <td>
+              <span class="badge" [ngClass]="product.isActive ? 'bg-success' : 'bg-danger'">
+                {{ product.isActive ? 'Active' : 'Inactive' }}
+              </span>
+            </td>
+            <td class="text-center">
+              <button 
+                class="btn btn-sm me-2" 
+                [ngClass]="product.isActive ? 'btn-outline-warning' : 'btn-outline-success'" 
+                (click)="toggleStatus(product.id, product.isActive)">
+                {{ product.isActive ? 'Deactivate' : 'Activate' }}
+              </button>
+              <button class="btn btn-sm btn-outline-primary me-2" (click)="onEdit(product)">
+                <i class="bi bi-pencil-square"></i> Edit
+              </button>
+              <button class="btn btn-sm btn-outline-danger" (click)="onDelete(product.id)">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </td>
+          </tr>
+
+          @if (editProduct && editProduct.id === product.id) {
+            <tr>
+              <td colspan="8" class="bg-light"> 
+                <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data" class="row g-3 p-3">
+                  
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">Product Name</label>
+                    <input formControlName="productName" class="form-control" />
+                  </div>
+
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">Slug</label>
+                    <input formControlName="slug" class="form-control" />
+                  </div>
+
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">Price</label>
+                    <input type="number" formControlName="price" class="form-control" />
+                  </div>
+
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">Stock Quantity</label>
+                    <input type="number" formControlName="stockQuantity" class="form-control" />
+                  </div>
+                  
+                  <div class="col-12">
+                    <label class="form-label fw-semibold">Description</label>
+                    <textarea formControlName="description" rows="2" class="form-control"></textarea>
+                  </div>
+
+                  <div class="col-md-4">
+                    <label class="form-label fw-semibold">Category</label>
+                    <select formControlName="categoryId" class="form-select">
+                        <option value="">Select Category</option>
+                        <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.categoryName }}</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-4">
+                    <label class="form-label fw-semibold">Brand</label>
+                    <select formControlName="brandId" class="form-select">
+                        <option value="">Select Brand</option>
+                        <option *ngFor="let b of brands" [value]="b.id">{{ b.name }}</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-4">
+                    <label class="form-label fw-semibold">Product Type</label>
+                    <select formControlName="productTypeId" class="form-select">
+                        <option value="">Select Product Type</option>
+                        <option *ngFor="let pt of productTypes" [value]="pt.id">{{ pt.productTypeName }}</option>
+                    </select>
+                  </div>
+
+                  <div class="col-12 mt-2">
+                    <h6 class="fw-semibold mb-1">Attributes</h6>
+                    <button type="button" class="btn btn-sm btn-outline-primary mb-2" (click)="addAttribute()">
+                      <i class="bi bi-plus-circle"></i> Add
+                    </button>
+                  </div>
+
+                  @for (attr of attributes.controls; track $index; let i = $index) {
+                    <div class="col-md-5">
+                      <input type="text" [formControl]="getAttributeControl(attr, 'name')" class="form-control" placeholder="Name" />
+                    </div>
+                    <div class="col-md-5">
+                      <input type="text" [formControl]="getAttributeControl(attr, 'value')" class="form-control" placeholder="Value" />
+                    </div>
+                    <div class="col-md-2">
+                      <button type="button" class="btn btn-outline-danger w-100" (click)="removeAttribute(i)">
+                        <i class="bi bi-x-circle"></i>
+                      </button>
+                    </div>
+                  }
+
+                  <div class="col-12">
+                    <label class="form-label fw-semibold">Images</label>
+                    <input type="file" class="form-control" multiple (change)="onFileChange($event)" />
+                    <div class="d-flex gap-2 mt-2 flex-wrap">
+                      @for (img of existingImages; track img) {
+                        <div class="position-relative">
+                          <img [src]="img.imageUrl" class="rounded border" width="80" height="80" />
+                          <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0" (click)="removeExistingImage(img)">×</button>
+                        </div>
+                      }
+                      <div *ngIf="newImages.length" class="text-success mt-2">
+                        + {{ newImages.length }} new file(s) ready to upload.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 text-end">
+                    <button type="submit" class="btn btn-success me-2">Save</button>
+                    <button type="button" class="btn btn-outline-secondary" (click)="onCancel()">Cancel</button>
+                  </div>
+
+                </form>
+              </td>
+            </tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -6,17 +6,18 @@ import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { Registeruseradmin } from "./user/registeruseradmin/registeruseradmin";
 import { Brand } from './product/brand/brand';
 import { BrandCreate } from './product/brand/brand-create/brand-create';
-import { Product } from "./product/product";
 import { Cetegory } from "./product/cetegory/cetegory";
 import { CreateCetegory } from "./product/cetegory/createcetegory/createcetegory";
 import { ProductTypes } from "./product/product-types/product-types";
 import { ProductTypesCreate } from "./product/product-types/product-types-create/product-types-create";
 import { ProductCreate } from "./product/product-create/product-create";
+import { Product } from "./product/product";
+import { Pages } from "./pagePost/page/page";
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, Sidebar, AllUsers, RouterModule, Registeruseradmin, Brand, BrandCreate, Cetegory, CreateCetegory, ProductTypes, ProductTypesCreate, Product, ProductCreate],
+  imports: [CommonModule, Sidebar, AllUsers, RouterModule, Registeruseradmin, Brand, BrandCreate, Cetegory, CreateCetegory, ProductTypes, ProductTypesCreate, ProductCreate, Product, Pages],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.css'],
 })
@@ -40,6 +41,16 @@ export class Dashboard {
     }
   }
 
+  // ================== Pages ==================
+  AddpagesRoute() {
+    this.activeAddSection = 'pages';
+    this.router.navigate(['/dashboard', 'pages', 'add']);
+  }
+
+  backpagesRoute() {
+    this.activeAddSection = '';
+    this.router.navigate(['/dashboard', 'pages']);
+  }
   // ================== Users ==================
   AddUserRoute() {
     this.activeAddSection = 'users';

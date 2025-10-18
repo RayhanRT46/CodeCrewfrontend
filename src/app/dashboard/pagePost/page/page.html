@@ -1,0 +1,138 @@
+<div class="container-fluid py-4">
+    
+    <div class="row mb-4">
+        <div class="col-12">
+             @if (message) {
+                <div class="alert py-2 small" 
+                     [ngClass]="message.startsWith('✅') ? 'alert-success' : 'alert-info'" 
+                     role="alert">
+                    {{ message }}
+                </div>
+            }
+
+            @if (!showForm) {
+                <button class="btn btn-primary btn-lg" (click)="openCreateForm()">
+                    <i class="bi bi-plus-circle-fill me-2"></i> Create New Page
+                </button>
+            } @else {
+                <button type="button" class="btn btn-outline-danger btn-lg" (click)="closeForm()">
+                    <i class="bi bi-x-lg me-2"></i> Close Form
+                </button>
+            }
+        </div>
+    </div>
+    
+    @if (showForm) {
+        <div class="row">
+            <div class="col-12 mb-4"> 
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">
+                            <i class="bi bi-file-earmark-text-fill me-2"></i>
+                            {{ isEditMode ? 'Edit Page' : 'Create New Page' }}
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="pageForm" (ngSubmit)="onSubmit()">
+                            
+                            <div class="mb-3">
+                                <input type="text" class="form-control" placeholder="Title" formControlName="title" (blur)="generateSlug($event)">
+                                @if (pageForm.get('title')?.invalid && pageForm.get('title')?.touched) {
+                                    <div class="text-danger small mt-1">Title is required.</div>
+                                }
+                            </div>
+                            
+                            <div class="mb-3">
+                                <input type="text" class="form-control" placeholder="Slug (URL)" formControlName="slug" readonly>
+                                <small class="form-text text-muted">Slug will be generated automatically.</small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label d-block">Page Content</label>
+                                
+                                <editor 
+                                    formControlName="content" 
+                                    [init]="editorConfig"
+                                    apiKey="r7yxjb9gqs9pro4fpf6cvhrb678lbiw2eswfq8nabazt904j"
+                                ></editor>
+
+                                @if (pageForm.get('content')?.invalid && pageForm.get('content')?.touched) {
+                                    <div class="text-danger small mt-1">Content is required.</div>
+                                }
+                            </div>
+                            
+                            <div class="form-check mb-4">
+                                <input id="isPublished" formControlName="isPublished" type="checkbox" class="form-check-input">
+                                <label class="form-check-label" for="isPublished">Publish Now?</label>
+                            </div>
+
+                            <div class="d-grid gap-2 mt-4">
+                                <button type="submit" class="btn btn-success btn-lg" [disabled]="pageForm.invalid">
+                                    <i class="bi bi-save"></i> 
+                                    {{ isEditMode ? 'Save Update' : 'Create Page' }}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">Page List (Total: @if (pages) { {{ pages.length }} })</h5>
+                </div>
+                
+                @if (loading) {
+                    }
+                
+                @if (!loading) {
+                    <div class="card-body p-0 table-responsive">
+                        <table class="table table-striped table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>#ID</th>
+                                    <th>Title</th>
+                                    <th>Slug</th>
+                                    <th>Published</th>
+                                    <th>Last Updated</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (page of pages; track page.id) {
+                                    <tr>
+                                        <td>{{ page.id }}</td>
+                                        <td>{{ page.title }}</td>
+                                        <td><span class="badge bg-secondary">{{ page.slug }}</span></td>
+                                        <td>
+                                            <span class="badge" [ngClass]="page.isPublished ? 'bg-success' : 'bg-warning text-dark'">
+                                                {{ page.isPublished ? 'Yes' : 'No' }}
+                                            </span>
+                                        </td>
+                                        <td>{{ page.updatedAt | date:'short' }}</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info me-2" (click)="editPage(page)">
+                                                <i class="bi bi-pencil-square"></i> Edit
+                                            </button>
+                                            <button class="btn btn-sm btn-danger" (click)="deletePage(page.id)">
+                                                <i class="bi bi-trash"></i> Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                
+                @if (!loading && pages.length === 0) {
+                    <div class="text-center p-4 text-muted">No pages found.</div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
