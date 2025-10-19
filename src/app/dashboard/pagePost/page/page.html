@@ -50,11 +50,8 @@
                             <div class="mb-3">
                                 <label class="form-label d-block">Page Content</label>
                                 
-                                <editor 
-                                    formControlName="content" 
-                                    [init]="editorConfig"
-                                    apiKey="r7yxjb9gqs9pro4fpf6cvhrb678lbiw2eswfq8nabazt904j"
-                                ></editor>
+<editor apiKey="kax898lq7t4kyam8s3ym1m9uhkopo9jqebw62lwzc0p50wh2"
+        [init]="tinymceConfig"  ></editor>
 
                                 @if (pageForm.get('content')?.invalid && pageForm.get('content')?.touched) {
                                     <div class="text-danger small mt-1">Content is required.</div>

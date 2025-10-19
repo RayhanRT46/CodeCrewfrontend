@@ -24,21 +24,24 @@ export class Pages implements OnInit {
   showForm: boolean = false;
 
 
-  // 💡 TinyMCE Editor Configuration (Wordpress-like features)
-  editorConfig = {
-    base_url: '/tinymce', // You might need to adjust this depending on your setup
-    suffix: '.min',
-    height: 400,
-    menubar: false,
+// 💡 TinyMCE Editor Configuration (Wordpress-like features)
+public tinymceConfig = {
     plugins: [
-      'advlist autolink lists link image charmap print preview anchor',
-      'searchreplace visualblocks code fullscreen',
-      'insertdatetime media table paste help wordcount'
+      'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+      'checklist', 'mediaembed', 'casechange', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'advtemplate', 'ai', 'uploadcare', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown','importword', 'exportword', 'exportpdf'
     ],
-    toolbar:
-      'undo redo | formatselect | bold italic backcolor | \
-      alignleft aligncenter alignright alignjustify | \
-      bullist numlist outdent indent | removeformat | link image media | code | help'
+    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography uploadcare | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+    tinycomments_mode: 'embedded',
+    tinycomments_author: 'Author name',
+    mergetags_list: [
+      { value: 'First.Name', title: 'First Name' },
+      { value: 'Email', title: 'Email' },
+    ],
+    // NOTE: The function definition must be handled carefully in TypeScript.
+    // For simplicity, you can often define this as a property or reference a method if needed.
+    // However, the object structure itself is now valid in TypeScript.
+    ai_request: (request: any, respondWith: any) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+    uploadcare_public_key: '88358b10322e5662393d',
   };
 
   constructor(
