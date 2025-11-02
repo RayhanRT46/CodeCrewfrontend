@@ -1,17 +1,15 @@
-.product-card {
-  transition: transform 0.3s, box-shadow 0.3s;
-  cursor: pointer;
+.home-container {
+  background-color: #f9fafc;
 }
 
-.product-card:hover {
-  transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+.carousel-item img {
+  border-radius: 1rem;
 }
 
-.product-img {
-  transition: transform 0.3s;
+.card {
+  transition: all 0.3s ease;
 }
-
-.product-card:hover .product-img {
-  transform: scale(1.1);
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }

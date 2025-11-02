@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Page } from '../PagePostInterface';
 import { PostPageService } from '../service';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { Title } from '@angular/platform-browser';
 
 
 
@@ -84,7 +85,7 @@ public tinymceConfig = {
   openCreateForm(): void {
     this.resetForm();
     this.showForm = true; // Show the form
-    this.message = 'Form opened to create a new page.';
+    this.message = 'Form opened to create a new post.';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -119,7 +120,7 @@ public tinymceConfig = {
       // Update existing page
       this.cmsService.updatePage(pageData).subscribe({
         next: () => {
-          this.message = '✅ Page successfully updated!';
+          this.message = '✅ Post successfully updated!';
           this.loadPages();
           this.closeForm(); // Hide form on success
         },
@@ -129,7 +130,7 @@ public tinymceConfig = {
       // Create new page
       this.cmsService.createPage(pageData).subscribe({
         next: () => {
-          this.message = '✅ New page successfully created!';
+          this.message = '✅ New post successfully created!';
           this.loadPages();
           this.closeForm(); // Hide form on success
         },
@@ -139,10 +140,10 @@ public tinymceConfig = {
   }
 
   deletePage(id: number): void {
-    if (confirm('Are you sure you want to delete this page?')) {
+    if (confirm('Are you sure you want to delete this post?')) {
       this.cmsService.deletePage(id).subscribe({
         next: () => {
-          this.message = `✅ Page ID ${id} deleted.`;
+          this.message = `✅ Post deleted.`;
           this.loadPages();
           // Ensure form is hidden if the page being edited was deleted
           if (this.isEditMode && this.pageForm.get('id')?.value === id) {
@@ -165,9 +166,9 @@ public tinymceConfig = {
         this.loading = false;
       },
       error: (err) => {
-        console.error('Failed to load pages:', err);
+        console.error('Failed to load posts:', err);
         this.loading = false;
-        this.message = '❌ Failed to load pages. Check your token or API.';
+        this.message = '❌ Failed to load post. Check your token or API.';
       }
     });
   }

@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Data, Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -6,6 +6,13 @@ import { BrandModel, BrandModel2 } from '../brand/brandModel';
 import { productTypeModel } from '../product-types/productTypeModel';
 import { Product } from '../productModel';
 import { environment } from '../../../environment';
+
+interface ProductApiResult {
+  TotalCount: number;
+  PageNumber: number;
+  PageSize: number;
+  Data: any[];
+}
 
 @Injectable({
   providedIn: 'root'
@@ -81,27 +88,49 @@ public DeleteProductType(id:number): Observable<any>{
 }
 
 //<---- Product ----->
+
+//Filtering Products
+public GetProductWithFiltering(categoryId?: number, showCount?: number): Observable<ProductApiResult> {
+    let params = new HttpParams();
+    
+    if (categoryId) {
+        params = params.append('categoryIds', categoryId.toString());
+    }
+    if (showCount) {
+        params = params.append('pageSize', showCount.toString());
+    }
+    return this.http.get<ProductApiResult>(
+        `${this.baseUrl}/api/Products/GetFilteredProductsForCustomer`, 
+        { params: params }
+    );
+  }
+
+  //Dashboard Product with UserID filtefing
 public GetProduct(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.baseUrl}/api/Products/GetAllProduct`);
   }
   
+  //New product Create
 public AddProduct(req: any): Observable<any> {
     return this.http.post(`${this.baseUrl + `/api/Products/CreateProduct`}`, req ) ;
   }
 
+  //Update Product 
 public  UpdateProduct(id: number, data: FormData): Observable<any> {
     return this.http.put<any>(`${this.baseUrl}/api/Products/UpdateProduct/${id}`, data);
   }
 
+  //Delete Product
  public DeleteProduct(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/api/Products/DeleteProduct/${id}`);
   }
 
-
+//Product Status Change
 public  toggleProductStatus(id: number, isActive: boolean) {
   return this.http.patch(`${this.baseUrl}/api/Products/ToggleProductStatus/${id}`, isActive);
 }
 
+//Product Bulk Actions
 public bulkAction(productIds: number[], action: string) {
   return this.http.post(`${this.baseUrl}/api/Products/BulkAction`, { productIds, action });
 }

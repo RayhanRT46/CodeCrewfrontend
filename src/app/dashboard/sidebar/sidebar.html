@@ -47,11 +47,29 @@
 
       <!-- Pages -->
       <li class="nav-item sidebar-item"
-        [class.active]="activeMenu === 'pages'"
-        (click)="selectMenu('pages')">
+        [class.active]="activeMenu === 'post'"
+        (click)="selectMenu('post')">
         <i class="bi bi-people-fill me-2"></i>
         @if (!isCollapsed) {
-        <span>Pages</span>
+        <span>Post</span>
+        }
+      </li>
+      <!-- Slider -->
+      <li class="nav-item sidebar-item"
+        [class.active]="activeMenu === 'slider'"
+        (click)="selectMenu('slider')">
+        <i class="bi bi-people-fill me-2"></i>
+        @if (!isCollapsed) {
+        <span>Slider</span>
+        }
+      </li>
+      <!-- HomePage Editor -->
+      <li class="nav-item sidebar-item"
+        [class.active]="activeMenu === 'homeeditor'"
+        (click)="selectMenu('homeeditor')">
+        <i class="bi bi-people-fill me-2"></i>
+        @if (!isCollapsed) {
+        <span>Home Page</span>
         }
       </li>
       <!-- Users -->

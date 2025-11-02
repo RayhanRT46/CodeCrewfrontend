@@ -1,5 +1,4 @@
-<!-- Header -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm sticky-top">
   <div class="container">
     <a class="navbar-brand fw-bold fs-4" routerLink="/">Code Crew</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -24,7 +23,7 @@
             <i class="bi bi-person-circle fs-4 me-1"></i> 
             {{ authService.getUser()?.fullName }}
           </a>
-          <ul class="dropdown-menu dropdown-menu-end shadow">
+          <ul class="dropdown-menu dropdown-menu-end shadow **z-3**">
             <li><a class="dropdown-item" routerLink="dashboard">Dashboard</a></li>
             <li><a class="dropdown-item" routerLink="profile">Profile</a></li>
             <li><hr class="dropdown-divider"></li>

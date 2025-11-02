@@ -69,10 +69,10 @@ export class Product {
   }
 
   loadDropdowns() {
-    // Assuming these methods exist in your service
-    // this.service.GetCetegory().subscribe(res => (this.categories = res));
-    // this.service.GetBrand().subscribe(res => (this.brands = res));
-    // this.service.GetProductType().subscribe(res => (this.productTypes = res));
+    //Assuming these methods exist in your service
+    this.service.GetCetegory().subscribe(res => (this.categories = res));
+    this.service.GetBrand().subscribe(res => (this.brands = res));
+    this.service.GetProductType().subscribe(res => (this.productTypes = res));
   }
 
   initForm() {

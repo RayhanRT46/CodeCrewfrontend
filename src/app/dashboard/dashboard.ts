@@ -13,11 +13,13 @@ import { ProductTypesCreate } from "./product/product-types/product-types-create
 import { ProductCreate } from "./product/product-create/product-create";
 import { Product } from "./product/product";
 import { Pages } from "./pagePost/page/page";
+import { Slider } from "./Slider/slider";
+import { HomeEditorComponent } from "./home-page/home-page";
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, Sidebar, AllUsers, RouterModule, Registeruseradmin, Brand, BrandCreate, Cetegory, CreateCetegory, ProductTypes, ProductTypesCreate, ProductCreate, Product, Pages],
+  imports: [CommonModule, Sidebar, AllUsers, RouterModule, Registeruseradmin, Brand, BrandCreate, Cetegory, CreateCetegory, ProductTypes, ProductTypesCreate, ProductCreate, Product, Pages, Slider, HomeEditorComponent],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.css'],
 })
@@ -43,13 +45,13 @@ export class Dashboard {
 
   // ================== Pages ==================
   AddpagesRoute() {
-    this.activeAddSection = 'pages';
-    this.router.navigate(['/dashboard', 'pages', 'add']);
+    this.activeAddSection = 'post';
+    this.router.navigate(['/dashboard', 'post', 'add']);
   }
 
   backpagesRoute() {
     this.activeAddSection = '';
-    this.router.navigate(['/dashboard', 'pages']);
+    this.router.navigate(['/dashboard', 'post']);
   }
   // ================== Users ==================
   AddUserRoute() {

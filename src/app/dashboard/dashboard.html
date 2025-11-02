@@ -78,14 +78,14 @@
         }
       }
 
-      <!-- Pages -->
-      @case('pages') {
+      <!-- Post -->
+      @case('post') {
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h3 class="fw-bold mb-0">
-            <i class="bi bi-people-fill text-primary me-2"></i> Pages
+            <i class="bi bi-people-fill text-primary me-2"></i> Post
           </h3>
         </div>
-        @if(activeAddSection === 'pages'){
+        @if(activeAddSection === 'post'){
           <app-page-crud (back)="backpagesRoute() "></app-page-crud>
         } @else {
           <app-page-crud></app-page-crud>
@@ -109,6 +109,24 @@
         }
       }
 
+      <!-- Slider -->
+      @case('slider') {
+        <h3 class="fw-bold mb-3">
+          <i class="bi bi-sliders text-warning me-2"></i> Slide Manager
+        </h3>
+        <app-slider></app-slider>
+      }
+
+
+      <!-- Home Page editor -->
+      @case('homeeditor') {
+        <h3 class="fw-bold mb-3">
+          <i class="bi bi-sliders text-warning me-2"></i> Home Page Editor
+        </h3>
+        <app-home-editor></app-home-editor>
+      }
+
+      
       <!-- Settings -->
       @case('settings') {
         <h3 class="fw-bold mb-3">

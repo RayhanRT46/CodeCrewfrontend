@@ -1,0 +1,19 @@
+      .editor-container {
+        width: 100%;
+        max-width: 1000px;
+      }
+      .slide-card {
+        transition: all 0.2s ease-in-out;
+        border: 2px solid transparent !important;
+      }
+      .slide-card.selected {
+        border-color: #198754 !important; /* Green border when selected */
+        box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
+      }
+      .slide-card:hover {
+        border-color: #0d6efd;
+        cursor: pointer;
+      }
+      .form-label {
+        margin-bottom: 0.3rem;
+      }

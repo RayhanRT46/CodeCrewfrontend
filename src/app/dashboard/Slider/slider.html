@@ -1,0 +1,84 @@
+<div class="slide-dashboard container mt-4">
+  <!-- Slide Form -->
+  <div class="card shadow p-4 mb-4">
+    <form id="slideForm" (ngSubmit)="addOrUpdateSlide(title.value, subtitle.value, btnText.value, btnLink.value, order.value)">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Title</label>
+          <input type="text" id="title" #title class="form-control" placeholder="Enter slide title" required>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Subtitle</label>
+          <input type="text" id="subtitle" #subtitle class="form-control" placeholder="Enter subtitle">
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Button Text</label>
+          <input type="text" id="btnText" #btnText class="form-control" placeholder="e.g. Shop Now">
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Button Link</label>
+          <input type="text" id="btnLink" #btnLink class="form-control" placeholder="e.g. /shop">
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-semibold">Order</label>
+          <input type="number" id="order" #order class="form-control" value="1">
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-semibold">Image</label>
+          <input type="file" class="form-control" (change)="onFileChange($event)">
+        </div>
+
+        @if (previewUrl) {
+          <div class="col-md-4 text-center">
+            <img [src]="previewUrl" alt="Preview" class="img-fluid rounded shadow-sm mt-2 slide-fixed-img">
+          </div>
+        }
+      </div>
+
+      <div class="text-center mt-4">
+        <button class="btn btn-primary px-5 py-2">
+          {{ isEditMode ? 'Update Slide' : 'Add Slide' }}
+        </button>
+        <button type="button" class="btn btn-secondary ms-2" (click)="resetForm()">Reset</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- All Slides -->
+  <div class="card shadow p-4">
+    <h4 class="mb-4 fw-semibold text-center">All Slides</h4>
+
+    <div class="list-group">
+      @for (s of slides; track s.id) {
+        <div class="list-group-item list-group-item-action mb-3 border rounded p-3">
+          <div class="row align-items-center">
+            <div class="col-md-3 text-center mb-3 mb-md-0">
+              <img [src]="s.imageUrl" alt="Slide Image" class="img-fluid rounded slide-fixed-img shadow-sm">
+            </div>
+
+            <div class="col-md-9">
+              <h5 class="fw-semibold mb-1">{{ s.title }}</h5>
+              <p class="text-muted mb-2">{{ s.subtitle }}</p>
+
+              @if (s.buttonText) {
+                <a [href]="s.buttonLink" target="_blank" class="btn btn-sm btn-outline-primary mb-3">
+                  {{ s.buttonText }}
+                </a>
+              }
+
+              <div class="d-flex justify-content-end">
+                <button class="btn btn-sm btn-warning me-2" (click)="editSlide(s)">Edit</button>
+                <button class="btn btn-sm btn-danger" (click)="deleteSlide(s.id)">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>
