@@ -7,11 +7,12 @@ import { LoginService } from './dashboard/user/service/login.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth-interceptor';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { FloatingCart } from "./cart/floating-cart/floating-cart";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, CommonModule, RouterModule],
+  imports: [RouterOutlet, RouterLink, CommonModule, RouterModule, FloatingCart],
   templateUrl: './app.html',
   styleUrls: ['./app.css'],
   providers: [

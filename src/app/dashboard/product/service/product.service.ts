@@ -90,20 +90,57 @@ public DeleteProductType(id:number): Observable<any>{
 //<---- Product ----->
 
 //Filtering Products
-public GetProductWithFiltering(categoryId?: number, showCount?: number): Observable<ProductApiResult> {
+public GetProductWithFiltering(categoryId: number, pageSize: number) {
+    const categoryIds = [categoryId]; 
     let params = new HttpParams();
-    
-    if (categoryId) {
-        params = params.append('categoryIds', categoryId.toString());
-    }
-    if (showCount) {
-        params = params.append('pageSize', showCount.toString());
-    }
-    return this.http.get<ProductApiResult>(
-        `${this.baseUrl}/api/Products/GetFilteredProductsForCustomer`, 
-        { params: params }
-    );
+    categoryIds.forEach(id => {
+      params = params.append('categoryIds', id.toString());
+    });
+    params = params.append('pageSize', pageSize.toString());
+
+    return this.http.get(`${this.baseUrl}/api/Products/GetFilteredProductsForCustomer`, { params });
   }
+
+GetProductWithFilterings(
+  categoryIds?: number[],
+  pageSize?: number,
+  productName?: string | null,
+  minPrice?: number | null,
+  maxPrice?: number | null,
+  minReviewRating?: number,
+  brandIds?: number[],
+  pageNumber?: number
+): Observable<any> {
+  
+  let params = new HttpParams();
+
+  // categoryIds
+  if (categoryIds && categoryIds.length > 0) {
+    categoryIds.forEach(id => {
+      params = params.append('categoryIds', id.toString());
+    });
+  }
+
+  // brandIds
+  if (brandIds && brandIds.length > 0) {
+    brandIds.forEach(id => {
+      params = params.append('brandIds', id.toString());
+    });
+  }
+
+  // string or numeric filters
+  if (pageSize != null) params = params.append('pageSize', pageSize.toString());
+  if (pageNumber != null) params = params.append('pageNumber', pageNumber.toString());
+  if (productName) params = params.append('productName', productName);
+  if (minPrice != null) params = params.append('minPrice', minPrice.toString());
+  if (maxPrice != null) params = params.append('maxPrice', maxPrice.toString());
+  if (minReviewRating != null) params = params.append('minReviewRating', minReviewRating.toString());
+
+  // call API
+  return this.http.get(`${this.baseUrl}/api/Products/GetFilteredProductsForCustomer`, { params });
+}
+
+
 
   //Dashboard Product with UserID filtefing
 public GetProduct(): Observable<Product[]> {

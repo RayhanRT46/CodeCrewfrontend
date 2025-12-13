@@ -156,7 +156,6 @@ export class HomeEditorComponent implements OnInit {
     this.saving = true;
 
     const payload = { config: this.config };
-    console.log('Sending Payload:', payload);
 
     // If configId exists, use PUT, otherwise use POST
     const request = this.configId

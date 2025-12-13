@@ -1,15 +1,222 @@
-.home-container {
-  background-color: #f9fafc;
+/* Hero section */
+.hero-section {
+  position: relative;
+  height: 75vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.carousel-item img {
-  border-radius: 1rem;
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.6);
+  z-index: 1;
+  transition: background-image 0.8s ease-in-out;
 }
 
-.card {
-  transition: all 0.3s ease;
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.6) 100%);
+  z-index: 2;
 }
-.card:hover {
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.hero-btn {
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 50px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+
+
+
+
+/* Feature section */
+.feature-section {
+  background-color: #f8f9fa;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: #6c757d;
+}
+
+.feature-card {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+}
+
+.feature-icon {
+  color: #0d6efd;
+}
+
+.feature-title {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.feature-description {
+  color: #6c757d;
+  font-size: 0.95rem;
+}
+
+
+
+
+
+
+
+/* Mid Slide  */
+.promo-card {
+  height: 260px;
+  border-radius: 25px;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  background-size: cover;
+  background-position: center;
+}
+
+.promo-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.promo-card .promo-content {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.257),   /* darker overlay for readability */
+    rgba(0, 0, 0, 0.094)
+  );
+  padding: 2rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.promo-card h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+  margin-bottom: 0.3rem;
+}
+
+.promo-card p {
+  font-size: 1.1rem;
+  color: #f0f0f0;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.promo-card .btn-outline-light {
+  font-size: 1rem;
+  padding: 0.6rem 1.3rem;
+  border-radius: 30px;
+  background-color: #007bff;
+  color: #fff;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.promo-card .btn-outline-light:hover {
+background-color: #ffffff;
+  color: #007bff;
+  text-decoration: none;
+}
+
+
+/* Product  */
+
+/* Section Header */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #222;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+}
+
+.section-line {
+  flex: 1;
+  border: 0;
+  height: 2px;
+  background-color: #ddd;
+  margin: 0;
+}
+
+/* Product Card */
+.product-card-pro {
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: #fff;
+}
+
+.product-card-pro:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+/* Product Image */
+.product-image-pro {
+width: 99%;
+border-radius: 25px;
+max-height: auto;
+object-fit: contain;
 }

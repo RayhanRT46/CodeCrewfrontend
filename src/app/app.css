@@ -1,4 +1,64 @@
+/* Custom Navbar */
+.custom-navbar {
+  background: linear-gradient(90deg, #4e73df, #1cc88a); /* modern gradient */
+  padding: 0.8rem 0;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s ease;
+  z-index: 1100;
+}
 
-.navbar .dropdown-menu {
-  z-index: 1050 !important;
+/* Navbar brand hover */
+.custom-navbar .navbar-brand:hover {
+  color: #ffd700;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* Menu links */
+.custom-navbar .nav-link {
+  color: #fff;
+  font-weight: 500;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.custom-navbar .nav-link:hover {
+  color: #ffd700;
+}
+
+/* Button style */
+.custom-navbar .btn-outline-light {
+  border: 1px solid #fff;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.custom-navbar .btn-outline-light:hover {
+  background: #fff;
+  color: #4e73df;
+  border-color: #fff;
+}
+
+/* Dropdown menu */
+.custom-navbar .dropdown-menu {
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  z-index: 1200;
+}
+
+.custom-navbar .dropdown-item:hover {
+  background-color: #f8f9fa;
+  color: #4e73df;
+}
+
+/* Toggler icon color */
+.navbar-toggler-icon {
+  filter: invert(1);
+}
+
+/* Responsive fixes */
+@media (max-width: 991px) {
+  .custom-navbar .dropdown-menu {
+    position: static;
+    float: none;
+  }
 }

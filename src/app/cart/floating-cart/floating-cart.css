@@ -1,0 +1,91 @@
+/* --- Floating Cart Button --- */
+.floating-cart {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: linear-gradient(135deg, #007bff, #00a2ff);
+  color: #fff;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  cursor: pointer;
+  z-index: 1050;
+  box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+  transition: all 0.25s ease;
+}
+
+.floating-cart:hover {
+  transform: scale(1.08) translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 123, 255, 0.55);
+  background: linear-gradient(135deg, #0062cc, #00a2ff);
+}
+
+/* --- Badge --- */
+.floating-cart .badge {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  background-color: #ff3b30;
+  color: #fff;
+  font-size: 12px;
+  border-radius: 50%;
+  padding: 4px 6px;
+  min-width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(255, 0, 0, 0.4);
+}
+
+/* --- Floating Cart Icon (bi-cart) --- */
+.floating-cart i {
+  font-size: 26px;
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* --- Small pulse animation --- */
+@keyframes cartPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.floating-cart:hover i {
+  animation: cartPulse 0.8s ease-in-out infinite;
+}
+
+
+.cart-modal {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  display: none;
+  z-index: 1050;
+}
+
+.cart-modal.show {
+  display: block;
+}
+
+.cart-content {
+  background: #fff;
+  width: 320px;
+  border-radius: 12px;
+  padding: 15px;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.cart-img {
+  width: 45px;
+  height: 45px;
+  border-radius: 6px;
+  object-fit: cover;
+}
