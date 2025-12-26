@@ -265,24 +265,25 @@ export class Product {
     });
   }
 
-  toggleStatus(id: number, currentStatus: boolean) {
-    debugger
+
+toggleStatus(id: number, currentStatus: boolean) {
     const newStatus = !currentStatus;
     this.service.toggleProductStatus(id, newStatus).subscribe({
       next: (res: any) => {
         const product = this.productList.find(p => p.id === id);
+        
         if (product) {
-          product.isActive = res.isActive; // Update local state
+          product.isActive = newStatus; 
         }
-
-        this.message = `✅ Product status updated to ${newStatus ? 'Active' : 'Inactive'}.`;
+        this.message = `✅ Product status updated to ${newStatus ? 'Active' : 'Deactivate'}.`;
         this.messageType = 'success';
       },
       error: err => {
         console.error('Failed to toggle status', err);
         this.message = '❌ Failed to update product status!';
         this.messageType = 'error';
+        const product = this.productList.find(p => p.id === id);
+        if(product) product.isActive = currentStatus;
       }
     });
-  }
-}
+  }}
